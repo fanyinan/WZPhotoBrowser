@@ -54,7 +54,7 @@ class ZoomImageScrollView: UIScrollView, HTableViewForPhotoCellDelegate {
     
   }
   
-  func initProgressView() {
+  private func initProgressView() {
     
     for view in subviews {
       if view.isKindOfClass(LoadImageProgressView) {
@@ -70,7 +70,7 @@ class ZoomImageScrollView: UIScrollView, HTableViewForPhotoCellDelegate {
     
   }
   
-  func setImage(image: UIImage?) {
+  private func setImage(image: UIImage?) {
     
     if image == nil {
       return
@@ -130,6 +130,18 @@ class ZoomImageScrollView: UIScrollView, HTableViewForPhotoCellDelegate {
       
     }
     
+  }
+  
+  /**
+   用本地图片设置
+   
+   - parameter image: image
+   */
+  func setLocalImage(image: UIImage) {
+    
+    netImageSize = image.size
+    isLoaded = true
+    setImage(image)
   }
   
   /**

@@ -19,10 +19,15 @@ protocol WZPhotoBrowserAnimatedTransition: NSObjectProtocol {
 
 @objc protocol WZPhotoBrowserDelegate: NSObjectProtocol {
   
+  //图片总数
   func numberOfImage(photoBrowser: WZPhotoBrowser) -> Int
-  func displayImageWithIndex(photoBrowser: WZPhotoBrowser, index: Int) -> String
-  
+  //加载网络图片
+  func displayWebImageWithIndex(photoBrowser: WZPhotoBrowser, index: Int) -> String
+  //加载本地图片，较网络图片优先判断
+  optional func displayLocalImageWithIndex(photoBrowser: WZPhotoBrowser, index: Int) -> UIImage?
+  //加载网络图片时的占位图片
   optional func placeHolderImageWithIndex(photoBrowser: WZPhotoBrowser, index: Int) -> UIImage?
+  //第一次进入时显示的图片index，默认为0
   optional func firstDisplayIndex(photoBrowser: WZPhotoBrowser) -> Int
   
 }
@@ -258,8 +263,16 @@ class WZPhotoBrowser: UIViewController {
       isDidShow = true
       let cell = mainTableView.cellForRowAtIndex(selectCellIndex)
       
-      cell.setImageUrl(delegate.displayImageWithIndex(self, index: selectCellIndex), placeholderImage: delegate.placeHolderImageWithIndex?(self, index: selectCellIndex), loadNow: true)
-
+      if let image = delegate.displayLocalImageWithIndex?(self, index: selectCellIndex) {
+        
+        cell.setLocalImage(image)
+        
+      } else {
+        
+        cell.setImageUrl(delegate.displayWebImageWithIndex(self, index: selectCellIndex), placeholderImage: delegate.placeHolderImageWithIndex?(self, index: selectCellIndex), loadNow: true)
+        
+      }
+      
     }
   }
 }
@@ -282,7 +295,15 @@ extension WZPhotoBrowser: HTableViewForPhotoDataSource {
     
     let loadNow = !(isAnimate && !isDidShow && selectCellIndex == index)
     
-    cell!.setImageUrl(delegate.displayImageWithIndex(self, index: index), placeholderImage: delegate.placeHolderImageWithIndex?(self, index: index), loadNow: loadNow)
+    if let image = delegate.displayLocalImageWithIndex?(self, index: index) {
+      
+      cell!.setLocalImage(image)
+
+    } else {
+      
+      cell!.setImageUrl(delegate.displayWebImageWithIndex(self, index: index), placeholderImage: delegate.placeHolderImageWithIndex?(self, index: index), loadNow: loadNow)
+
+    }
 
     return cell!
   }
@@ -300,9 +321,17 @@ extension WZPhotoBrowser: UICollectionViewDataSource {
     
     cell.setBorderWidth(borderWidth / 2)
 
-    let imageUrl = delegate.displayImageWithIndex(self, index: indexPath.row)
+    if let image = delegate.displayLocalImageWithIndex?(self, index: indexPath.row) {
       
-    cell.setImageWith(imgUrl: imageUrl)
+      cell.setImageWith(image: image)
+      
+    } else {
+      
+      cell.setImageWith(imgUrl: delegate.displayWebImageWithIndex(self, index: indexPath.row))
+
+      
+    }
+    
     
     return cell
     

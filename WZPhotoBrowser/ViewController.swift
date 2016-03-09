@@ -43,7 +43,7 @@ class ViewController: UIViewController {
   var identifierCell = "VisitedMeCollectionViewCell"
   let vSpace: CGFloat = 10
   let hSpace: CGFloat = 10
-  let numOfCol = 2
+  let numOfCol = 4
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -127,7 +127,7 @@ extension ViewController: WZPhotoBrowserDelegate {
   func numberOfImage(photoBrowser: WZPhotoBrowser) -> Int {
     return imageUrlList.count
   }
-  func displayImageWithIndex(photoBrowser: WZPhotoBrowser, index: Int) -> String {
+  func displayWebImageWithIndex(photoBrowser: WZPhotoBrowser, index: Int) -> String {
     return imageUrlList[index]
   }
   
@@ -137,6 +137,14 @@ extension ViewController: WZPhotoBrowserDelegate {
   
   func placeHolderImageWithIndex(photoBrowser: WZPhotoBrowser, index: Int) -> UIImage? {
     return thumbnailImageDic[imageUrlList[index]]
+  }
+  
+  func displayLocalImageWithIndex(photoBrowser: WZPhotoBrowser, index: Int) -> UIImage? {
+    if index == 1 {
+      return UIImage(named: "image1")
+    } else {
+      return nil
+    }
   }
 }
 
