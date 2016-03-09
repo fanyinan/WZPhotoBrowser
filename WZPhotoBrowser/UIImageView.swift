@@ -25,8 +25,8 @@ extension UIImageView {
   
   func imageWithUrl(url: String, size: CGSize, imageStyle: NetImageStyle, plachholderImage: UIImage? = nil, completed: ((UIImage) -> Void)? = nil) {
     
-//    let newUrl = url.getImageUrlWithSize(size, imageStyle: imageStyle)
-    let newUrl = url
+    let newUrl = url.getImageUrlWithSize(size, imageStyle: imageStyle)
+//    let newUrl = url
     if let _plachholderImage = plachholderImage {
       
       if let _completed = completed {

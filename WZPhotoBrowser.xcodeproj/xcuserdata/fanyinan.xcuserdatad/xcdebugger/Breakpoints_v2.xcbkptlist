@@ -6,32 +6,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "WZPhotoBrowser/HTableView.swift"
-            timestampString = "469253324.70412"
+            filePath = "WZPhotoBrowser/nowVersion/ZoomImageScrollView.swift"
+            timestampString = "479202734.960932"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "158"
-            endingLineNumber = "158"
-            landmarkName = "addCellIntoHTableView(_:direction:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "WZPhotoBrowser/UIImageView.swift"
-            timestampString = "469985593.096586"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "60"
-            endingLineNumber = "60"
-            landmarkName = "imageWithUrlNoCut(_:plachholderImage:completed:)"
+            startingLineNumber = "121"
+            endingLineNumber = "121"
+            landmarkName = "setImageUrl(_:placeholderImage:loadNow:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

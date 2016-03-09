@@ -21,7 +21,7 @@ class ViewController: UIViewController {
     "http://image1.yuanfenba.net/uploads/oss/photo/201511/19/17164875104.jpg",
     "http://image1.yuanfenba.net/uploads/oss/dynamic/201511/25/23171018488.jpg",
     "http://www.feizl.com/upload2007/2010_09/100911130437041.jpg",
-    "http://img1.3lian.com/2015/a1/119/d/238.jpg",
+//    "image1",
     "http://www.th7.cn/d/file/p/2014/05/26/0663b0489efeb590a78e8aba16e5040a.jpg",
     "http://g.hiphotos.baidu.com/album/pic/item/cf1b9d16fdfaaf51b530fc868e5494eef01f7a33.jpg?psign=b530fc868e5494eef01f3a292df5e0fe9825bc315c605e0b",
     "http://image.tianjimedia.com/uploadImages/2014/103/20/9QFI1QR41K5J.jpg",
@@ -139,13 +139,13 @@ extension ViewController: WZPhotoBrowserDelegate {
     return thumbnailImageDic[imageUrlList[index]]
   }
   
-  func displayLocalImageWithIndex(photoBrowser: WZPhotoBrowser, index: Int) -> UIImage? {
-    if index == 1 {
-      return UIImage(named: "image1")
-    } else {
-      return nil
-    }
-  }
+//  func displayLocalImageWithIndex(photoBrowser: WZPhotoBrowser, index: Int) -> UIImage? {
+//    if index == 4 {
+//      return UIImage(named: "image1")
+//    } else {
+//      return nil
+//    }
+//  }
 }
 
 extension ViewController: UICollectionViewDataSource {
@@ -163,11 +163,21 @@ extension ViewController: UICollectionViewDataSource {
     
     let cell = collectionView.dequeueReusableCellWithReuseIdentifier(identifierCell, forIndexPath: indexPath) as! VisitedMeCollectionViewCell
     
-    cell.avatarImageView.imageWithUrl(imageUrlList[indexPath.row], size: CGSize(width: 150, height: 150), imageStyle: .OriginScale, plachholderImage: nil) { (image) -> Void in
+    cell.avatarImageView.sd_setImageWithURL(NSURL(string: imageUrlList[indexPath.row])) { (image, ErrorType, type, url) -> Void in
       
-      self.thumbnailImageDic[self.imageUrlList[indexPath.row]] = image
+      if  image == nil {
+        cell.avatarImageView.image = UIImage(named: url.absoluteString)
+      }
+      
+      self.thumbnailImageDic[self.imageUrlList[indexPath.row]] = image ?? UIImage(named: url.absoluteString)
 
     }
+    
+//    cell.avatarImageView.imageWithUrl(imageUrlList[indexPath.row], size: CGSize(width: imageWidth, height: imageWidth), imageStyle: .OriginScale, plachholderImage: nil) { (image) -> Void in
+//      
+//      self.thumbnailImageDic[self.imageUrlList[indexPath.row]] = image
+//
+//    }
 
     return cell
   }

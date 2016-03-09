@@ -192,16 +192,15 @@ class ZoomImageScrollView: UIScrollView, HTableViewForPhotoCellDelegate {
     if placeHolderImageSize != nil && self.isLoaded == true {
       
       //此时已经换了一张大图，但是需要先缩小到之前的比例，以便进行动画
-      var scaleForPlaceHolder = self.placeHolderImageSize!.width / imageSize.width
-      
-      scaleForPlaceHolder = reducePlaceHolderIfNeed(scaleForPlaceHolder)
+      //这里使用的占位图片的尺寸应为实际显示出来的尺寸，因为占位图的缩放比例用reducePlaceHolderIfNeed处理过
+      let scaleForPlaceHolder = self.placeHolderImageSize!.width * zoomScale / imageSize.width
       
       minimumZoomScale = scaleForPlaceHolder
       zoomScale = scaleForPlaceHolder
       
       setNeedsLayout()
       layoutIfNeeded()
-      
+
       isAnimation = true
       UIView.animateWithDuration(0.2, animations: { () -> Void in
         
