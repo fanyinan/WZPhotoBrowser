@@ -231,11 +231,11 @@ extension ViewController: UIViewControllerTransitioningDelegate {
 
 extension ViewController: WZPhotoBrowserAnimatedTransition {
   
-  func getImageViewFrameInParentViewWith(index: Int?) -> CGRect? {
+  func getImageViewFrameInScreenWith(index: Int?) -> CGRect? {
     
     if let imageItem = collectionView.cellForItemAtIndexPath(NSIndexPath(forRow: index ?? selectImageIndex, inSection: 0)) {
       
-      let imagePositionInView = view.convertRect(imageItem.frame, fromView: collectionView)
+      let imagePositionInView = collectionView.convertRect(imageItem.frame, toView: nil)
       
       return imagePositionInView
     }

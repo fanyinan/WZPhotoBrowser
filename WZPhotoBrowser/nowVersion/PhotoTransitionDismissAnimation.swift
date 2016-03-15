@@ -9,7 +9,7 @@
 import UIKit
 
 class PhotoTransitionDismissAnimation: NSObject, UIViewControllerAnimatedTransitioning {
-
+  
   weak var showVC: WZPhotoBrowserAnimatedTransition?
   
   init(showVC: WZPhotoBrowserAnimatedTransition) {
@@ -20,14 +20,15 @@ class PhotoTransitionDismissAnimation: NSObject, UIViewControllerAnimatedTransit
   func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
     return 0.3
   }
-
+  
   func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
     
-    let fromVC = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey) as! WZPhotoBrowser
-    let toVC = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
-    
+    guard let fromVC = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey) as? WZPhotoBrowser else {
+      return }
+    guard let  toVC = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey) else { return }
     guard let containerView = transitionContext.containerView() else { return }
-    
+    guard let _showVC = showVC else { return }
+
     containerView.addSubview(toVC.view)
     containerView.sendSubviewToBack(toVC.view)
     
@@ -38,19 +39,22 @@ class PhotoTransitionDismissAnimation: NSObject, UIViewControllerAnimatedTransit
     //初始化负责动画的ImageView
     let imageSizeInFromVC = fromVC.getCurrentDisplayImageSize()
     let imageViewForAnimation = UIImageView(frame: CGRect(origin: CGPointZero, size: imageSizeInFromVC))
+    containerView.addSubview(imageViewForAnimation)
     imageViewForAnimation.center = fromView.center
-    imageViewForAnimation.image = fromVC.getCurrentDisplayImage()
     imageViewForAnimation.contentMode = .ScaleAspectFill
     imageViewForAnimation.clipsToBounds = true
-    containerView.addSubview(imageViewForAnimation)
+    imageViewForAnimation.image = fromVC.getCurrentDisplayImage()
+    
     
     var finalFrame = CGRectZero
     var isHaveTargetFrame: Bool!
     
     //如果没有获得最终的位置，则已fade的形式消失
-    if let imageFrameInParentView = showVC!.getImageViewFrameInParentViewWith(fromVC.selectCellIndex) {
-      finalFrame = CGRectOffset(imageFrameInParentView, 0, 64)
+    if let imageFrameInScreen = _showVC.getImageViewFrameInScreenWith(fromVC.selectCellIndex) {
+      
+      finalFrame = imageFrameInScreen
       isHaveTargetFrame = true
+      
     } else {
       
       //动画结束时图片的放大比例
@@ -76,7 +80,7 @@ class PhotoTransitionDismissAnimation: NSObject, UIViewControllerAnimatedTransit
         
         imageViewForAnimation.removeFromSuperview()
         transitionContext.completeTransition(true)
-
+        
     }
     
   }

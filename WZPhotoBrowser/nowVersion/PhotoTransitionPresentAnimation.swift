@@ -22,26 +22,24 @@ class PhotoTransitionPresentAnimation: NSObject, UIViewControllerAnimatedTransit
   }
   
   func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
-        
-    let toVC = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey) as? WZPhotoBrowser
     
-    guard toVC != nil else {
-      return
-    }
+    guard let toVC = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey) as? WZPhotoBrowser else { return }
+    guard let _showVC = showVC else { return }
+    guard let containerView = transitionContext.containerView() else { return }
     
-    let toView = toVC!.view
+    let toView = toVC.view
     toView.alpha = 0
-    transitionContext.containerView()?.addSubview(toView)
-    toVC!.setMainTableViewHiddenForAnimation(true)
+    containerView.addSubview(toView)
+    toVC.setMainTableViewHiddenForAnimation(true)
     
-    let imageFrameInFromVC = showVC!.getImageViewFrameInParentViewWith(nil)!
-    let imageViewForAnimation = UIImageView(frame: CGRectOffset(imageFrameInFromVC, 0, 64))
-    imageViewForAnimation.image = showVC!.getImageForAnimation()
+    let imageFrameInScreen = _showVC.getImageViewFrameInScreenWith(nil) ?? CGRectZero
+    let imageViewForAnimation = UIImageView(frame: imageFrameInScreen)
+    containerView.addSubview(imageViewForAnimation)
     imageViewForAnimation.contentMode = .ScaleAspectFill
     imageViewForAnimation.clipsToBounds = true
-    transitionContext.containerView()?.addSubview(imageViewForAnimation)
+    imageViewForAnimation.image = _showVC.getImageForAnimation()
     
-    let finalSize = toVC!.getCurrentDisplayImageSize()
+    let finalSize = toVC.getCurrentDisplayImageSize()
     
     UIView.animateWithDuration(transitionDuration(transitionContext), animations: { () -> Void in
       
@@ -51,10 +49,10 @@ class PhotoTransitionPresentAnimation: NSObject, UIViewControllerAnimatedTransit
       
       }) { _ in
         
-        toVC!.setMainTableViewHiddenForAnimation(false)
+        toVC.setMainTableViewHiddenForAnimation(false)
         imageViewForAnimation.removeFromSuperview()
         transitionContext.completeTransition(true)
-        toVC!.completePresent()
+        toVC.completePresent()
         
     }
     

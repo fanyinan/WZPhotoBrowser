@@ -11,7 +11,7 @@ import UIKit
 protocol WZPhotoBrowserAnimatedTransition: NSObjectProtocol {
   
   //如果index为nil则返回当前点击的即将跳转图片浏器的图片的frame
-  func getImageViewFrameInParentViewWith(index: Int?) -> CGRect?
+  func getImageViewFrameInScreenWith(index: Int?) -> CGRect?
   
   func getImageForAnimation() -> UIImage?
   
