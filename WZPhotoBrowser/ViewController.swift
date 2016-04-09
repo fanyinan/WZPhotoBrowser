@@ -50,7 +50,7 @@ class ViewController: UIViewController {
     
 //    view.backgroundColor = UIColor.greenColor()
 //    
-    navigationItem.rightBarButtonItem = UIBarButtonItem(title: "clear cache", style: .Plain, target: self, action: "onClearCache")
+    navigationItem.rightBarButtonItem = UIBarButtonItem(title: "clear cache", style: .Plain, target: self, action: #selector(ViewController.onClearCache))
     
     imageUrlList = Array(imageStoreUrlList[0..<imageStoreUrlList.count])
     
@@ -80,7 +80,7 @@ class ViewController: UIViewController {
   
   func initView(){
     
-    title = "最近来访"
+    title = "PhotoBrowser"
     
     view.backgroundColor = UIColor.groupTableViewBackgroundColor()
     
@@ -93,7 +93,7 @@ class ViewController: UIViewController {
     collectionView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
     
     slider = UISlider(frame: CGRect(x: 10, y: 500, width: view.frame.width - 20, height: 10))
-    slider.addTarget(self, action: "changeImageCount:", forControlEvents: .ValueChanged)
+    slider.addTarget(self, action: #selector(ViewController.changeImageCount(_:)), forControlEvents: .ValueChanged)
     slider.value = Float(imageInitCount) / Float(imageStoreUrlList.count)
     
     view.addSubview(collectionView)
@@ -117,7 +117,7 @@ class ViewController: UIViewController {
     }
     photoBrowser.isAnimate = true
     photoBrowser.transitioningDelegate = self
-    photoBrowser.isShowThumb = true
+    photoBrowser.isShowThumb = false
     presentViewController(photoBrowser, animated: true, completion: nil)
   }
 
