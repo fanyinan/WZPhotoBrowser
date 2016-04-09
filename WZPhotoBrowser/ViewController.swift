@@ -38,7 +38,6 @@ class ViewController: UIViewController {
   
   var imageUrlList: [String] = []
   var collectionView: UICollectionView!
-  var imageInitCount = 2
   var thumbnailImageDic: [String: UIImage] = [:]
   var identifierCell = "VisitedMeCollectionViewCell"
   let vSpace: CGFloat = 10
@@ -47,9 +46,7 @@ class ViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
-//    view.backgroundColor = UIColor.greenColor()
-//    
+        
     navigationItem.rightBarButtonItem = UIBarButtonItem(title: "clear cache", style: .Plain, target: self, action: #selector(ViewController.onClearCache))
     
     imageUrlList = Array(imageStoreUrlList[0..<imageStoreUrlList.count])
@@ -94,7 +91,7 @@ class ViewController: UIViewController {
     
     slider = UISlider(frame: CGRect(x: 10, y: 500, width: view.frame.width - 20, height: 10))
     slider.addTarget(self, action: #selector(ViewController.changeImageCount(_:)), forControlEvents: .ValueChanged)
-    slider.value = Float(imageInitCount) / Float(imageStoreUrlList.count)
+    slider.value = Float(imageUrlList.count) / Float(imageStoreUrlList.count)
     
     view.addSubview(collectionView)
     view.addSubview(slider)
