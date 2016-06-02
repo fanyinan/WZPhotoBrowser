@@ -48,17 +48,17 @@ class HTableViewForPhoto: UIScrollView {
   }
   
 //  private var scrollView: UIScrollView!
-  var dataSource: HTableViewForPhotoDataSource!{
+  weak var dataSource: HTableViewForPhotoDataSource?{
     didSet{
       loadData()
     }
   }
-  var delegateForHTableView: HTableViewForPhotoDelegate?
+  weak var delegateForHTableView: HTableViewForPhotoDelegate?
   
   //cell的个数
   private var numberOfColumns: Int!
   //可见cell的范围
-  private var visibleRange = Range(start: 0, end: 0)
+  private var visibleRange = Range(0..<0)
   //cell的高
   private var cellHeight: CGFloat = 0
   //所有cell的rect
@@ -80,7 +80,7 @@ class HTableViewForPhoto: UIScrollView {
   override init(frame: CGRect) {
     super.init(frame: frame)
 
-    let tap = UITapGestureRecognizer(target: self, action: "scrollViewDicTap:")
+    let tap = UITapGestureRecognizer(target: self, action: #selector(HTableViewForPhoto.scrollViewDicTap(_:)))
     tap.numberOfTapsRequired = 1
     tap.numberOfTouchesRequired = 1
     addGestureRecognizer(tap)
@@ -112,7 +112,7 @@ class HTableViewForPhoto: UIScrollView {
     visibleCellList = []
     
     delegate = self
-    numberOfColumns = dataSource.numberOfColumnsForPhoto(self)
+    numberOfColumns = dataSource?.numberOfColumnsForPhoto(self) ?? 0
     var cellWidth: CGFloat = 0
     //记录当前所有的cell所占宽度
     var currentAllWidth: CGFloat = 0
@@ -120,12 +120,7 @@ class HTableViewForPhoto: UIScrollView {
     //保存所有cell的rect 为 string
     for index in 0..<numberOfColumns {
       
-      if delegateForHTableView != nil && delegateForHTableView!.respondsToSelector("hTableView:widthForColumnAtIndex:"){
-        cellWidth = delegateForHTableView!.hTableViewForPhoto!(self, widthForColumnAtIndex: index)
-      } else {
-        //如果没实现hTableView:widthForColumnAtIndex: 那么宽度默认为scrollview的宽度
-        cellWidth = CGRectGetWidth(frame)
-      }
+      cellWidth = delegateForHTableView?.hTableViewForPhoto?(self, widthForColumnAtIndex: index) ?? CGRectGetWidth(frame)
       let rect = CGRectMake(currentAllWidth, 0, cellWidth, cellHeight)
       allRectList += [String(NSStringFromCGRect(rect))]
       
@@ -156,7 +151,7 @@ class HTableViewForPhoto: UIScrollView {
       
       addCellIntoHTableView(currentIndex, direction: .Left)
       currentAllWidth += widthToAdd
-      currentIndex++
+      currentIndex += 1
     }
     visibleRange.endIndex = currentIndex
     
@@ -170,7 +165,7 @@ class HTableViewForPhoto: UIScrollView {
   */
   private func addCellIntoHTableView(index: Int, direction: RollDirection){
     let cellRect = CGRectFromString(allRectList[index])
-    let cell = dataSource.hTableViewForPhoto(self, cellForColumnAtIndex: index)
+    guard let cell = dataSource?.hTableViewForPhoto(self, cellForColumnAtIndex: index) else { return }
     cell.frame = cellRect
     addSubview(cell)
     
@@ -226,25 +221,27 @@ class HTableViewForPhoto: UIScrollView {
       //左滑时，最左边一个滑出scrollView，则移除，加入复用列表准备复用
       if CGRectGetMaxX(firstVisibleCellRect) <= CGRectGetMinX(self.visibleRect()){
         removeFromHTableView(0)
-        visibleRange.startIndex++
+        visibleRange.startIndex += 1
       }
       
       //左滑时，最右边一个完全移进scrollView时，加载一个cell
       if CGRectGetMaxX(lastVisibleCellRect) <= CGRectGetMaxX(self.visibleRect()){
         if visibleRange.endIndex < numberOfColumns {
-          addCellIntoHTableView(visibleRange.endIndex++, direction: .Left)
+          addCellIntoHTableView(visibleRange.endIndex, direction: .Left)
+          visibleRange.endIndex += 1
         }
       }
     } else {
       //右滑同左滑
       if CGRectGetMinX(lastVisibleCellRect) >= CGRectGetMaxX(self.visibleRect()){
         removeFromHTableView(visibleCellList.count - 1)
-        visibleRange.endIndex--
+        visibleRange.endIndex -= 1
       }
       
       if CGRectGetMinX(firstVisibleCellRect) >= CGRectGetMinX(self.visibleRect()){
         if visibleRange.startIndex > 0 {
-          addCellIntoHTableView(--visibleRange.startIndex, direction: .Right)
+          visibleRange.startIndex -= 1
+          addCellIntoHTableView(visibleRange.startIndex, direction: .Right)
         }
       }
     }
@@ -358,9 +355,9 @@ class HTableViewForPhoto: UIScrollView {
     return allRectList.map({CGRectFromString($0)})
   }
   
-  func itemForRowAtIndex(index: Int) -> ZoomImageScrollView {
+  func itemForRowAtIndex(index: Int) -> ZoomImageScrollView? {
     
-    let item = dataSource.hTableViewForPhoto(self, cellForColumnAtIndex: index)
+    guard let item = dataSource?.hTableViewForPhoto(self, cellForColumnAtIndex: index) else { return nil }
     item.frame = CGRectFromString(allRectList[index])
     
     return item
@@ -379,7 +376,7 @@ class HTableViewForPhoto: UIScrollView {
     return nil
   }
   
-  func cellForRowAtIndex(index: Int) -> ZoomImageScrollView {
+  func cellForRowAtIndex(index: Int) -> ZoomImageScrollView? {
     
     if visibleRange.contains(index) && !visibleRange.isEmpty{
       
@@ -387,7 +384,7 @@ class HTableViewForPhoto: UIScrollView {
       return visibleCellList[indexOfVisibleCells]
     }
     
-    let cell = dataSource.hTableViewForPhoto(self, cellForColumnAtIndex: index)
+    guard let cell = dataSource?.hTableViewForPhoto(self, cellForColumnAtIndex: index) else { return nil }
     cell.frame = CGRectFromString(allRectList[index])
     
     return cell

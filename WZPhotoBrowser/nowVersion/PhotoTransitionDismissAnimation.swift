@@ -50,7 +50,7 @@ class PhotoTransitionDismissAnimation: NSObject, UIViewControllerAnimatedTransit
     var isHaveTargetFrame: Bool!
     
     //如果没有获得最终的位置，则已fade的形式消失
-    if let imageFrameInScreen = _showVC.getImageViewFrameInScreenWith(fromVC.selectCellIndex) {
+    if let imageFrameInScreen = _showVC.getImageViewFrameInScreenWith(fromVC.currentIndex) {
       
       finalFrame = imageFrameInScreen
       isHaveTargetFrame = true

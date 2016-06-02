@@ -43,9 +43,9 @@ class WZPhotoBrowser: UIViewController {
   private var isMoveThumb = false //当图片数量少于thumbNum时，thumbCollectionView不会移动
   private var isClickThumb = false
   
-  var delegate: WZPhotoBrowserDelegate
+  weak var delegate: WZPhotoBrowserDelegate?
   var quitBlock: (() -> Void)?
-  var selectCellIndex: Int = 0 {
+  private(set) var currentIndex: Int = 0 {
     didSet{
       photoDidChange()
     }
@@ -71,6 +71,10 @@ class WZPhotoBrowser: UIViewController {
     super.init(nibName: nil, bundle: nil)
   }
   
+  deinit {
+    print("deinit")
+  }
+  
   required init?(coder aDecoder: NSCoder) {
       fatalError("init(coder:) has not been implemented")
   }
@@ -80,18 +84,18 @@ class WZPhotoBrowser: UIViewController {
   
     initView()
     
-    isMoveThumb = delegate.numberOfImage(self) > Int(thumbNum)
+    isMoveThumb = delegate?.numberOfImage(self) ?? 0 > Int(thumbNum)
     
   }
   
   override func viewWillAppear(animated: Bool) {
     super.viewWillAppear(animated)
     
-    mainTableView.moveToPage(delegate.firstDisplayIndex?(self) ?? 0)
+    mainTableView.moveToPage(delegate?.firstDisplayIndex?(self) ?? 0)
     
-    //当默认显示第0张时，selectCellIndex不会被赋值，需要手动赋值，以便调用photoDidChange
-    if delegate.firstDisplayIndex?(self) != nil && (delegate.firstDisplayIndex?(self))! == 0 {
-      selectCellIndex = 0
+    //当默认显示第0张时，currentIndex不会被赋值，需要手动赋值，以便调用photoDidChange
+    if delegate?.firstDisplayIndex?(self) != nil && (delegate?.firstDisplayIndex?(self))! == 0 {
+      currentIndex = 0
     }
 
     hideNavigationBar()
@@ -99,8 +103,8 @@ class WZPhotoBrowser: UIViewController {
   
   override func viewDidAppear(animated: Bool) {
     
-    distancePerMainPhoto = (thumbCollectionView.contentSize.width - thumbCollectionView.frame.width) / CGFloat(delegate.numberOfImage(self) - 1)
-    scrollViewDidScroll(thumbCollectionView)
+    distancePerMainPhoto = (thumbCollectionView.contentSize.width - thumbCollectionView.frame.width) / CGFloat(delegate?.numberOfImage(self) ?? 0 - 1)
+//    scrollViewDidScroll(thumbCollectionView)
 
   }
   
@@ -229,7 +233,7 @@ class WZPhotoBrowser: UIViewController {
   func onClickPhoto() {
     
     quitBlock?()
-    
+    quitBlock = nil
   }
   
   func photoDidChange() {
@@ -239,8 +243,8 @@ class WZPhotoBrowser: UIViewController {
   //for transitionAnimation
   func getCurrentDisplayImageSize() -> CGSize {
     
-    let cell = mainTableView.cellForRowAtIndex(selectCellIndex)
-    return cell.getImageSize()
+    let cell = mainTableView.cellForRowAtIndex(currentIndex)
+    return cell?.getImageSize() ?? CGSizeZero
   }
   
   //for transitionAnimation
@@ -251,8 +255,8 @@ class WZPhotoBrowser: UIViewController {
   //for transitionAnimation dismiss
   func getCurrentDisplayImage() -> UIImage? {
     
-    let cell = mainTableView.cellForRowAtIndex(selectCellIndex)
-    return cell.getImage()
+    let cell = mainTableView.cellForRowAtIndex(currentIndex)
+    return cell?.getImage()
   }
 
   //for transitionAnimation presnet
@@ -261,15 +265,15 @@ class WZPhotoBrowser: UIViewController {
     if isAnimate {
       
       isDidShow = true
-      let cell = mainTableView.cellForRowAtIndex(selectCellIndex)
+      let cell = mainTableView.cellForRowAtIndex(currentIndex)
       
-      if let image = delegate.displayLocalImageWithIndex?(self, index: selectCellIndex) {
+      if let image = delegate?.displayLocalImageWithIndex?(self, index: currentIndex) {
         
-        cell.setLocalImage(image)
+        cell?.setLocalImage(image)
         
       } else {
         
-        cell.setImageUrl(delegate.displayWebImageWithIndex(self, index: selectCellIndex), placeholderImage: delegate.placeHolderImageWithIndex?(self, index: selectCellIndex), loadNow: true)
+        cell?.setImageUrl(delegate?.displayWebImageWithIndex(self, index: currentIndex) ?? "", placeholderImage: delegate?.placeHolderImageWithIndex?(self, index: currentIndex), loadNow: true)
         
       }
       
@@ -280,28 +284,28 @@ class WZPhotoBrowser: UIViewController {
 extension WZPhotoBrowser: HTableViewForPhotoDataSource {
   
   func numberOfColumnsForPhoto(hTableView: HTableViewForPhoto) -> Int{
-    return delegate.numberOfImage(self)
+    return delegate?.numberOfImage(self) ?? 0
   }
   
   func hTableViewForPhoto(hTableView: HTableViewForPhoto, cellForColumnAtIndex index: Int) -> ZoomImageScrollView{
     var cell = hTableView.dequeueReusableCellWithIdentifier(IDENTIFIER_IMAGE_CELL)
     if cell == nil {
       cell = ZoomImageScrollView(reuseIdentifier: IDENTIFIER_IMAGE_CELL)
-      cell!.addImageTarget(self, action: Selector("onClickPhoto"))
+      cell!.addImageTarget(self, action: #selector(WZPhotoBrowser.onClickPhoto))
     }
     
     cell!.frame = mainTableView.frame
     cell!.padding = padding
     
-    let loadNow = !(isAnimate && !isDidShow && selectCellIndex == index)
+    let loadNow = !(isAnimate && !isDidShow && currentIndex == index)
     
-    if let image = delegate.displayLocalImageWithIndex?(self, index: index) {
+    if let image = delegate?.displayLocalImageWithIndex?(self, index: index) {
       
       cell!.setLocalImage(image)
 
     } else {
       
-      cell!.setImageUrl(delegate.displayWebImageWithIndex(self, index: index), placeholderImage: delegate.placeHolderImageWithIndex?(self, index: index), loadNow: loadNow)
+      cell!.setImageUrl(delegate?.displayWebImageWithIndex(self, index: index) ?? "", placeholderImage: delegate?.placeHolderImageWithIndex?(self, index: index), loadNow: loadNow)
 
     }
 
@@ -312,7 +316,7 @@ extension WZPhotoBrowser: HTableViewForPhotoDataSource {
 extension WZPhotoBrowser: UICollectionViewDataSource {
   
   func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return delegate.numberOfImage(self)
+    return delegate?.numberOfImage(self) ?? 0
   }
   
   func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
@@ -321,13 +325,13 @@ extension WZPhotoBrowser: UICollectionViewDataSource {
     
     cell.setBorderWidth(borderWidth / 2)
 
-    if let image = delegate.displayLocalImageWithIndex?(self, index: indexPath.row) {
+    if let image = delegate?.displayLocalImageWithIndex?(self, index: indexPath.row) {
       
       cell.setImageWith(image: image)
       
     } else {
       
-      cell.setImageWith(imgUrl: delegate.displayWebImageWithIndex(self, index: indexPath.row))
+      cell.setImageWith(imgUrl: delegate?.displayWebImageWithIndex(self, index: indexPath.row) ?? "")
 
       
     }
@@ -352,7 +356,7 @@ extension WZPhotoBrowser: HTableViewForPhotoDelegate {
   
   func hTableViewForPhotoDidScroll(hTableViewForPhoto: HTableViewForPhoto) {
     
-    //更新selectCellIndex
+    //更新currentIndex
     let cellPoint = view.convertPoint(hTableViewForPhoto.center, toView: mainTableView)
     let showPhotoIndex = mainTableView.indexForRowAtPoint(cellPoint)
     
@@ -360,8 +364,8 @@ extension WZPhotoBrowser: HTableViewForPhotoDelegate {
       return
     }
     
-    if selectCellIndex != showPhotoIndex! {
-      selectCellIndex = showPhotoIndex!
+    if currentIndex != showPhotoIndex! {
+      currentIndex = showPhotoIndex!
     }
 
     //只有当拖拽主图时才，缩略图才会移动，不然拖动缩略图时主图移动，又回使缩略图一起移动
@@ -369,7 +373,7 @@ extension WZPhotoBrowser: HTableViewForPhotoDelegate {
       return
     }
     
-    var progress = hTableViewForPhoto.contentOffset.x / (hTableViewForPhoto.contentSize.width / CGFloat(delegate.numberOfImage(self)) * CGFloat(delegate.numberOfImage(self) - 1))
+    var progress = hTableViewForPhoto.contentOffset.x / (hTableViewForPhoto.contentSize.width / CGFloat(delegate?.numberOfImage(self) ?? 0) * CGFloat(delegate?.numberOfImage(self) ?? 0 - 1))
     
     progress = progress > 1.0 ? 1.0 : progress
     progress = progress < 0.0 ? 0.0 : progress
@@ -395,10 +399,10 @@ extension WZPhotoBrowser: HTableViewForPhotoDelegate {
     
 //    let cellPoint = view.convertPoint(hTableViewForPhoto.center, toView: mainTableView)
 //    let showPhotoIndex = mainTableView.indexForRowAtPoint(cellPoint)
-//    selectCellIndex = showPhotoIndex ?? 0
+//    currentIndex = showPhotoIndex ?? 0
     
     //校正零点几像素的偏差
-    //    moveBorderViewTo(selectCellIndex)
+    //    moveBorderViewTo(currentIndex)
     
   }
 }
@@ -429,13 +433,13 @@ extension WZPhotoBrowser: UICollectionViewDelegateFlowLayout {
     
     mainTableView.moveToPage(indexPath.row)
     
-    selectCellIndex = indexPath.row
+    currentIndex = indexPath.row
     
     isDraggingMainView = true
     
     if isMoveThumb {
       
-      self.thumbCollectionView.setContentOffset(CGPoint(x: self.distancePerMainPhoto * CGFloat(self.selectCellIndex), y: 0), animated: true)
+      self.thumbCollectionView.setContentOffset(CGPoint(x: self.distancePerMainPhoto * CGFloat(self.currentIndex), y: 0), animated: true)
       
     } else {
       
@@ -464,7 +468,7 @@ extension WZPhotoBrowser: UICollectionViewDelegateFlowLayout {
       return
     }
     
-    let mainPhotoShouldOffset = progress * (mainTableView.contentSize.width / CGFloat(delegate.numberOfImage(self)) * CGFloat(delegate.numberOfImage(self) - 1))
+    let mainPhotoShouldOffset = progress * (mainTableView.contentSize.width / CGFloat(delegate?.numberOfImage(self) ?? 0) * CGFloat(delegate?.numberOfImage(self) ?? 0 - 1))
     
     //当移动了半张图片的距离是就显示下张图片
     if abs(mainPhotoShouldOffset - mainTableView.contentOffset.x) > mainTableView.frame.width / 2 {

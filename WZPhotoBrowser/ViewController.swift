@@ -11,7 +11,6 @@ import Foundation
 
 class ViewController: UIViewController {
   
-  var photoBrowser: WZPhotoBrowser!
   var button: UIButton!
   var selectImageIndex: Int!
   var slider: UISlider!
@@ -109,12 +108,12 @@ class ViewController: UIViewController {
   
   
   func showPhotoBrowser() {
-    photoBrowser = WZPhotoBrowser(delegate: self){
-      self.dismissViewControllerAnimated(true, completion: nil)
+    let photoBrowser = WZPhotoBrowser(delegate: self){ [weak self] in
+      self?.dismissViewControllerAnimated(true, completion: nil)
     }
     photoBrowser.isAnimate = true
     photoBrowser.transitioningDelegate = self
-    photoBrowser.isShowThumb = false
+    photoBrowser.isShowThumb = true
     presentViewController(photoBrowser, animated: true, completion: nil)
   }
 
