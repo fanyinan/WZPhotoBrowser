@@ -39,11 +39,11 @@ class PhotoTransitionPresentAnimation: NSObject, UIViewControllerAnimatedTransit
     imageViewForAnimation.clipsToBounds = true
     imageViewForAnimation.image = _showVC.getImageForAnimation()
     
-    let finalSize = toVC.getCurrentDisplayImageSize()
+    let finalRect = toVC.getCurrentDisplayImageRect()
     
     UIView.animateWithDuration(transitionDuration(transitionContext), animations: { () -> Void in
       
-      imageViewForAnimation.frame = CGRect(origin: imageViewForAnimation.frame.origin, size: finalSize)
+      imageViewForAnimation.frame = finalRect
       imageViewForAnimation.center = toView.center
       toView.alpha = 1
       

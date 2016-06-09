@@ -37,10 +37,9 @@ class PhotoTransitionDismissAnimation: NSObject, UIViewControllerAnimatedTransit
     fromVC.setMainTableViewHiddenForAnimation(true)
     
     //初始化负责动画的ImageView
-    let imageSizeInFromVC = fromVC.getCurrentDisplayImageSize()
-    let imageViewForAnimation = UIImageView(frame: CGRect(origin: CGPointZero, size: imageSizeInFromVC))
+    let imageSizeInFromVC = fromVC.getCurrentDisplayImageRect()
+    let imageViewForAnimation = UIImageView(frame: imageSizeInFromVC)
     containerView.addSubview(imageViewForAnimation)
-    imageViewForAnimation.center = fromView.center
     imageViewForAnimation.contentMode = .ScaleAspectFill
     imageViewForAnimation.clipsToBounds = true
     imageViewForAnimation.image = fromVC.getCurrentDisplayImage()

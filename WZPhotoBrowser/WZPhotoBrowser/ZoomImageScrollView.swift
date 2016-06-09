@@ -8,80 +8,37 @@
 
 import UIKit
 
-class ZoomImageScrollView: UIScrollView, HTableViewForPhotoCellDelegate {
+class ZoomImageScrollView: UIScrollView {
   
   private var imageView: UIImageView!
-  private var simpleTap: UITapGestureRecognizer!
-  var reuseIdentifier: String
+  private var singleTap: UITapGestureRecognizer!
+  private var doubleTap: UITapGestureRecognizer!
   private var placeHolderImageSize: CGSize?
   private var netImageSize: CGSize!
   private var isLoaded = false // 是否加载完大图
   private var isAnimation = false //标识此刻是否为放大动画，如果是则手动调整大小执行moveFrameToCenter，不执行layoutsubviews的moveFrameToCenter
   private var progressView: LoadImageProgressView?
+  private var initialZoomScale: CGFloat! //保存初始比例，供双击放大后还原使用
   
-  var padding: CGFloat = 0
+  let maxScale: CGFloat = 3
   
-  init(reuseIdentifier: String){
-    self.reuseIdentifier = reuseIdentifier
+  init(){
     super.init(frame: CGRectZero)
     configUI()
   }
   
   required init?(coder aDecoder: NSCoder) {
-    self.reuseIdentifier = ""
     super.init(coder: aDecoder)
   }
   
-  private func configUI() {
-    backgroundColor = UIColor.blackColor()
-    showsHorizontalScrollIndicator = false
-    showsVerticalScrollIndicator = false
-    decelerationRate = UIScrollViewDecelerationRateFast
-    //    autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
-    alwaysBounceHorizontal = false
-    delegate = self
-    scrollEnabled = false //使图片开始是不能滑动的，因为当图片宽为600左右，scale为0.533左右时，htable无法滑动，具体原因不明
-    
-    //imageview
-    imageView = UIImageView(frame: CGRectZero)
-    imageView.backgroundColor = UIColor.yellowColor()
-    imageView.contentMode = .ScaleAspectFill
-    imageView.userInteractionEnabled = true
-    simpleTap = UITapGestureRecognizer()
-    imageView.addGestureRecognizer(simpleTap)
-    
-    addSubview(imageView)
-    
-  }
   
-  private func initProgressView() {
+  override func layoutSubviews() {
+    super.layoutSubviews()
     
-    for view in subviews {
-      if view.isKindOfClass(LoadImageProgressView) {
-        return
-      }
-    }
-    let progressWidth: CGFloat = 100
-    let progressheight: CGFloat = 100
-    let x: CGFloat = (CGRectGetWidth(frame) - progressWidth) / 2
-    let y: CGFloat = (CGRectGetHeight(frame) - progressheight) / 2
-    progressView = LoadImageProgressView(frame: CGRect(x: x, y: y, width: progressWidth, height: progressWidth))
-    addSubview(progressView!)
-    
-  }
-  
-  private func setImage(image: UIImage?) {
-    
-    if image == nil {
-      return
+    if !isAnimation {
+      moveFrameToCenter()
     }
     
-    imageView.image = image
-    //这里设置imageview的size为imagesize在当前缩放比例下的size
-    imageView.frame = CGRect(x: 0, y: 0, width: image!.size.width * zoomScale, height: image!.size.height * zoomScale)
-    contentSize = imageView.frame.size
-    
-    calculateZoomScale()
   }
   
   /**
@@ -151,9 +108,92 @@ class ZoomImageScrollView: UIScrollView, HTableViewForPhotoCellDelegate {
    :param: action action
    */
   func addImageTarget(target: AnyObject, action: Selector) {
-    simpleTap.addTarget(target, action: action)
+    singleTap.addTarget(target, action: action)
   }
   
+  func imageViewDoubleTap(tap: UITapGestureRecognizer) {
+
+    guard isLoaded else { return }
+    
+    guard zoomScale == initialZoomScale else {
+      
+      setZoomScale(initialZoomScale, animated: true)
+      return
+    }
+    
+    let position = tap.locationInView(self)
+    
+    let zoomRectScale: CGFloat = 3
+    
+    let zoomWidth = imageView.frame.width / self.zoomScale / zoomRectScale
+    let zoomHeight = imageView.frame.height / self.zoomScale / zoomRectScale
+    let zoomX = position.x / self.zoomScale - zoomWidth / 2
+    let zoomY = position.y / self.zoomScale - zoomWidth / 2
+
+    //此值为在zoomscale为1时，图片上的尺寸
+    //用于表示要把这个以点击位置为center的rect区域缩放zoomRectScale倍
+    let zoomRect = CGRect(x: zoomX, y: zoomY, width: zoomWidth, height: zoomHeight)
+    zoomToRect(zoomRect, animated: true)
+
+  }
+  
+  private func configUI() {
+    backgroundColor = UIColor.blackColor()
+    showsHorizontalScrollIndicator = false
+    showsVerticalScrollIndicator = false
+    decelerationRate = UIScrollViewDecelerationRateFast
+    //    autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+    alwaysBounceHorizontal = false
+    delegate = self
+    scrollEnabled = false //使图片开始是不能滑动的，因为当图片宽为600左右，scale为0.533左右时，htable无法滑动，具体原因不明
+    
+    //imageview
+    imageView = UIImageView(frame: CGRectZero)
+    imageView.backgroundColor = UIColor.yellowColor()
+    imageView.contentMode = .ScaleAspectFill
+    imageView.userInteractionEnabled = true
+    
+    singleTap = UITapGestureRecognizer()
+    addGestureRecognizer(singleTap)
+    
+    doubleTap = UITapGestureRecognizer(target: self, action: #selector(ZoomImageScrollView.imageViewDoubleTap(_:)))
+    doubleTap.numberOfTapsRequired = 2
+    addGestureRecognizer(doubleTap)
+    singleTap.requireGestureRecognizerToFail(doubleTap)
+    
+    addSubview(imageView)
+    
+  }
+  
+  private func initProgressView() {
+    
+    for view in subviews {
+      if view.isKindOfClass(LoadImageProgressView) {
+        return
+      }
+    }
+    let progressWidth: CGFloat = 100
+    let progressheight: CGFloat = 100
+    let x: CGFloat = (CGRectGetWidth(frame) - progressWidth) / 2
+    let y: CGFloat = (CGRectGetHeight(frame) - progressheight) / 2
+    progressView = LoadImageProgressView(frame: CGRect(x: x, y: y, width: progressWidth, height: progressWidth))
+    addSubview(progressView!)
+    
+  }
+  
+  private func setImage(image: UIImage?) {
+    
+    if image == nil {
+      return
+    }
+    
+    imageView.image = image
+    //这里设置imageview的size为imagesize在当前缩放比例下的size
+    imageView.frame = CGRect(x: 0, y: 0, width: image!.size.width * zoomScale, height: image!.size.height * zoomScale)
+//    contentSize = imageView.frame.size //不用手动设置
+    
+    calculateZoomScale()
+  }
   
   private func didFetchImageWith(image: UIImage) {
     
@@ -168,7 +208,7 @@ class ZoomImageScrollView: UIScrollView, HTableViewForPhotoCellDelegate {
     let boundsSize = bounds.size
     let imageSize = isLoaded == true ? netImageSize : placeHolderImageSize!
     
-    let scaleX = (boundsSize.width - padding * CGFloat(2)) / imageSize.width
+    let scaleX = boundsSize.width / imageSize.width
     let scaleY = boundsSize.height / imageSize.height
     
     var minScale = min(scaleX, scaleY)
@@ -184,8 +224,6 @@ class ZoomImageScrollView: UIScrollView, HTableViewForPhotoCellDelegate {
       minScale = reducePlaceHolderIfNeed(minScale)
       
     }
-    
-    let maxScale = CGFloat(3)
     
     maximumZoomScale = maxScale
     
@@ -206,7 +244,7 @@ class ZoomImageScrollView: UIScrollView, HTableViewForPhotoCellDelegate {
         
         self.minimumZoomScale = minScale
         self.zoomScale = self.minimumZoomScale
-        
+        self.initialZoomScale = self.zoomScale
         self.moveFrameToCenter()
       })
       
@@ -215,6 +253,8 @@ class ZoomImageScrollView: UIScrollView, HTableViewForPhotoCellDelegate {
       isAnimation = false
       minimumZoomScale = minScale
       zoomScale = minimumZoomScale
+      initialZoomScale = zoomScale
+
     }
     
     setNeedsLayout()
@@ -263,22 +303,14 @@ class ZoomImageScrollView: UIScrollView, HTableViewForPhotoCellDelegate {
     return scale
   }
   
-  override func layoutSubviews() {
-    super.layoutSubviews()
-    
-    if !isAnimation {
-      moveFrameToCenter()
-    }
-  }
-  
   //for transitionAnimation push
-  func getImageSize() -> CGSize {
+  func getImageRectForAnimation() -> CGRect {
     
-    return imageView.frame.size
+    return convertRect(imageView.frame, toView: nil)
   }
   
   //for transitionAnimation pop
-  func getImage() -> UIImage? {
+  func getImageForAnimation() -> UIImage? {
     return imageView.image
   }
 }

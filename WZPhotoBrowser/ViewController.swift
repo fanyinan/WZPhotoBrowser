@@ -113,7 +113,7 @@ class ViewController: UIViewController {
     }
     photoBrowser.isAnimate = true
     photoBrowser.transitioningDelegate = self
-    photoBrowser.isShowThumb = true
+//    photoBrowser.isShowThumb = true
     presentViewController(photoBrowser, animated: true, completion: nil)
   }
 
