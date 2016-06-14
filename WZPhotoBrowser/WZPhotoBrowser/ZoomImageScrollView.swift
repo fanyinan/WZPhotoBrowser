@@ -121,20 +121,26 @@ class ZoomImageScrollView: UIScrollView {
       return
     }
     
-    let position = tap.locationInView(self)
+    let position = tap.locationInView(imageView)
     
-    let zoomRectScale: CGFloat = 3
+    let zoomRectScale: CGFloat = 2
     
-    let zoomWidth = imageView.frame.width / self.zoomScale / zoomRectScale
-    let zoomHeight = imageView.frame.height / self.zoomScale / zoomRectScale
-    let zoomX = position.x / self.zoomScale - zoomWidth / 2
-    let zoomY = position.y / self.zoomScale - zoomWidth / 2
+    // "/ zoomScale"将尺寸还原为zoomscale为1时的尺寸
+    let zoomWidth = frame.width / zoomScale / zoomRectScale
+    let zoomHeight = frame.height / zoomScale / zoomRectScale
+    //position为zoomscale为1时的位置; "* zoomScale":转为当前zoomscale下的position
+    //"/ imageView.frame.width * frame.width" 将点击的位置按比例转为scrollview上的位置
+    //"/ zoomScale":再将位置还原为zoomscale为1时的位置
+    //当zoomScale为1时还是有瑕疵，待改进
+    let zoomX = position.x * zoomScale / imageView.frame.width * frame.width / zoomScale - zoomWidth / 2
+    let zoomY = position.y * zoomScale / imageView.frame.height * frame.height / zoomScale - zoomHeight / 2
 
-    //此值为在zoomscale为1时，图片上的尺寸
+    //此值为在zoomscale为1时图片上的尺寸
     //用于表示要把这个以点击位置为center的rect区域缩放zoomRectScale倍
+    //此处需要解决：当以zoomRectScale放大后，图片的高超过屏幕的高度，此时不应该再动画的时候执行moveFrameToCenter，而应根据点击位置调整
     let zoomRect = CGRect(x: zoomX, y: zoomY, width: zoomWidth, height: zoomHeight)
     zoomToRect(zoomRect, animated: true)
-
+    
   }
   
   private func configUI() {
@@ -158,7 +164,7 @@ class ZoomImageScrollView: UIScrollView {
     
     doubleTap = UITapGestureRecognizer(target: self, action: #selector(ZoomImageScrollView.imageViewDoubleTap(_:)))
     doubleTap.numberOfTapsRequired = 2
-    addGestureRecognizer(doubleTap)
+    imageView.addGestureRecognizer(doubleTap)
     singleTap.requireGestureRecognizerToFail(doubleTap)
     
     addSubview(imageView)
