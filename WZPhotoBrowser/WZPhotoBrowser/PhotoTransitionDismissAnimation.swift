@@ -10,9 +10,9 @@ import UIKit
 
 class PhotoTransitionDismissAnimation: NSObject, UIViewControllerAnimatedTransitioning {
   
-  weak var showVC: WZPhotoBrowserAnimatedTransition?
+  weak var showVC: WZPhotoBrowserAnimatedTransitionDataSource?
   
-  init(showVC: WZPhotoBrowserAnimatedTransition) {
+  init(showVC: WZPhotoBrowserAnimatedTransitionDataSource) {
     self.showVC = showVC
     super.init()
   }
@@ -28,9 +28,10 @@ class PhotoTransitionDismissAnimation: NSObject, UIViewControllerAnimatedTransit
     guard let  toVC = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey) else { return }
     guard let containerView = transitionContext.containerView() else { return }
     guard let _showVC = showVC else { return }
-
+    
     containerView.addSubview(toVC.view)
     containerView.sendSubviewToBack(toVC.view)
+    containerView.backgroundColor = UIColor.clearColor()
     
     let fromView = fromVC.view
     fromView.alpha = 1
@@ -66,6 +67,8 @@ class PhotoTransitionDismissAnimation: NSObject, UIViewControllerAnimatedTransit
       isHaveTargetFrame = false
     }
     
+    (self.showVC as? WZPhotoBrowserAnimatedTransitionDelegate)?.animatedTransitionBeginDismissViewController?(imageViewForAnimation)
+    
     UIView.animateWithDuration(transitionDuration(transitionContext), animations: { () -> Void in
       
       fromView.alpha = 0
@@ -75,11 +78,16 @@ class PhotoTransitionDismissAnimation: NSObject, UIViewControllerAnimatedTransit
         imageViewForAnimation.alpha = 0
       }
       
-      }) { _ in
-        
-        imageViewForAnimation.removeFromSuperview()
-        transitionContext.completeTransition(true)
-        
+      //I know it is like a shit, but it's cool
+      ((self.showVC as? WZPhotoBrowserAnimatedTransitionDelegate)?.animateBlockWhenDismissingViewController?(imageViewForAnimation))?()
+      
+    }) { _ in
+      
+      imageViewForAnimation.removeFromSuperview()
+      transitionContext.completeTransition(true)
+      
+      (self.showVC as? WZPhotoBrowserAnimatedTransitionDelegate)?.animatedTransitionEndDismissViewController?(imageViewForAnimation)
+      
     }
     
   }

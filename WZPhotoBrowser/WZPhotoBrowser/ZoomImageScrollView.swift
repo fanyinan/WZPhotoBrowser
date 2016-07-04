@@ -165,7 +165,7 @@ class ZoomImageScrollView: UIScrollView {
     doubleTap = UITapGestureRecognizer(target: self, action: #selector(ZoomImageScrollView.imageViewDoubleTap(_:)))
     doubleTap.numberOfTapsRequired = 2
     imageView.addGestureRecognizer(doubleTap)
-    singleTap.requireGestureRecognizerToFail(doubleTap)
+//    singleTap.requireGestureRecognizerToFail(doubleTap)
     
     addSubview(imageView)
     

@@ -142,6 +142,7 @@ extension ViewController: WZPhotoBrowserDelegate {
 //      return nil
 //    }
 //  }
+  
 }
 
 extension ViewController: UICollectionViewDataSource {
@@ -225,7 +226,7 @@ extension ViewController: UIViewControllerTransitioningDelegate {
 
 }
 
-extension ViewController: WZPhotoBrowserAnimatedTransition {
+extension ViewController: WZPhotoBrowserAnimatedTransitionDataSource {
   
   func getImageViewFrameInScreenWith(index: Int?) -> CGRect? {
     
