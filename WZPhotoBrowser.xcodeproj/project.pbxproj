@@ -7,25 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CF04DDE01D110B9E008DDA50 /* WZPhotoCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF04DDDF1D110B9E008DDA50 /* WZPhotoCollectionViewFlowLayout.swift */; };
 		CF0638B01D0978F800F8ECD1 /* LoadImageProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0638A71D0978F800F8ECD1 /* LoadImageProgressView.swift */; };
 		CF0638B11D0978F800F8ECD1 /* PhotoCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0638A81D0978F800F8ECD1 /* PhotoCollectionCell.swift */; };
 		CF0638B21D0978F800F8ECD1 /* PhotoTransitionDismissAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0638A91D0978F800F8ECD1 /* PhotoTransitionDismissAnimation.swift */; };
 		CF0638B31D0978F800F8ECD1 /* PhotoTransitionPresentAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0638AA1D0978F800F8ECD1 /* PhotoTransitionPresentAnimation.swift */; };
 		CF0638B61D0978F800F8ECD1 /* WZPhotoBrowser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0638AD1D0978F800F8ECD1 /* WZPhotoBrowser.swift */; };
 		CF0638B81D0978F800F8ECD1 /* ZoomImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0638AF1D0978F800F8ECD1 /* ZoomImageScrollView.swift */; };
+		CF0695301D503FD70031E670 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF06952F1D503FD70031E670 /* UIColor+Extension.swift */; };
 		CF5749E61B9714A200FECAE3 /* VisitedMeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF5749E41B9714A200FECAE3 /* VisitedMeCollectionViewCell.swift */; };
 		CF5749E71B9714A200FECAE3 /* VisitedMeCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF5749E51B9714A200FECAE3 /* VisitedMeCollectionViewCell.xib */; };
-		CFB049201B9D5D1E00C8EDC4 /* MuColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB0491F1B9D5D1E00C8EDC4 /* MuColor.swift */; };
+		CF9B27B01D2D03E30092BA1C /* WZPhotoCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9B27AF1D2D03E30092BA1C /* WZPhotoCollectionViewFlowLayout.swift */; };
 		CFCA33F71B95968E00B05827 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCA33F61B95968E00B05827 /* AppDelegate.swift */; };
 		CFCA33F91B95968E00B05827 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCA33F81B95968E00B05827 /* ViewController.swift */; };
 		CFCA33FC1B95968E00B05827 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CFCA33FA1B95968E00B05827 /* Main.storyboard */; };
 		CFCA33FE1B95968E00B05827 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CFCA33FD1B95968E00B05827 /* Assets.xcassets */; };
 		CFCA34011B95968E00B05827 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CFCA33FF1B95968E00B05827 /* LaunchScreen.storyboard */; };
-		CFEEFDB11C015894003B84F8 /* MuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFEEFDAF1C015894003B84F8 /* MuView.swift */; };
-		CFEEFDB21C015894003B84F8 /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFEEFDB01C015894003B84F8 /* UIImageView.swift */; };
-		CFEEFDB41C0158F0003B84F8 /* String+ProcessString.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFEEFDB31C0158F0003B84F8 /* String+ProcessString.swift */; };
-		CFEEFDB61C015955003B84F8 /* MuTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFEEFDB51C015955003B84F8 /* MuTools.swift */; };
 		CFFF26871BE0F4EC006E9575 /* NSData+ImageContentType.m in Sources */ = {isa = PBXBuildFile; fileRef = CFFF266B1BE0F4EC006E9575 /* NSData+ImageContentType.m */; };
 		CFFF26881BE0F4EC006E9575 /* SDImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = CFFF266D1BE0F4EC006E9575 /* SDImageCache.m */; };
 		CFFF26891BE0F4EC006E9575 /* SDWebImageCompat.m in Sources */ = {isa = PBXBuildFile; fileRef = CFFF266F1BE0F4EC006E9575 /* SDWebImageCompat.m */; };
@@ -43,17 +39,17 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		CF04DDDF1D110B9E008DDA50 /* WZPhotoCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WZPhotoCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		CF0638A71D0978F800F8ECD1 /* LoadImageProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadImageProgressView.swift; sourceTree = "<group>"; };
 		CF0638A81D0978F800F8ECD1 /* PhotoCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCollectionCell.swift; sourceTree = "<group>"; };
 		CF0638A91D0978F800F8ECD1 /* PhotoTransitionDismissAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoTransitionDismissAnimation.swift; sourceTree = "<group>"; };
 		CF0638AA1D0978F800F8ECD1 /* PhotoTransitionPresentAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoTransitionPresentAnimation.swift; sourceTree = "<group>"; };
 		CF0638AD1D0978F800F8ECD1 /* WZPhotoBrowser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WZPhotoBrowser.swift; sourceTree = "<group>"; };
 		CF0638AF1D0978F800F8ECD1 /* ZoomImageScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZoomImageScrollView.swift; sourceTree = "<group>"; };
+		CF06952F1D503FD70031E670 /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		CF5749E31B96D0EF00FECAE3 /* WZPhotoBrowser-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WZPhotoBrowser-Bridging-Header.h"; sourceTree = "<group>"; };
 		CF5749E41B9714A200FECAE3 /* VisitedMeCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitedMeCollectionViewCell.swift; sourceTree = "<group>"; };
 		CF5749E51B9714A200FECAE3 /* VisitedMeCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VisitedMeCollectionViewCell.xib; sourceTree = "<group>"; };
-		CFB0491F1B9D5D1E00C8EDC4 /* MuColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MuColor.swift; sourceTree = "<group>"; };
+		CF9B27AF1D2D03E30092BA1C /* WZPhotoCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WZPhotoCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		CFCA33F31B95968E00B05827 /* WZPhotoBrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WZPhotoBrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CFCA33F61B95968E00B05827 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CFCA33F81B95968E00B05827 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -61,10 +57,6 @@
 		CFCA33FD1B95968E00B05827 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CFCA34001B95968E00B05827 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CFCA34021B95968E00B05827 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CFEEFDAF1C015894003B84F8 /* MuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MuView.swift; sourceTree = "<group>"; };
-		CFEEFDB01C015894003B84F8 /* UIImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
-		CFEEFDB31C0158F0003B84F8 /* String+ProcessString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+ProcessString.swift"; sourceTree = "<group>"; };
-		CFEEFDB51C015955003B84F8 /* MuTools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MuTools.swift; sourceTree = "<group>"; };
 		CFFF266A1BE0F4EC006E9575 /* NSData+ImageContentType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+ImageContentType.h"; sourceTree = "<group>"; };
 		CFFF266B1BE0F4EC006E9575 /* NSData+ImageContentType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+ImageContentType.m"; sourceTree = "<group>"; };
 		CFFF266C1BE0F4EC006E9575 /* SDImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDImageCache.h; sourceTree = "<group>"; };
@@ -110,13 +102,13 @@
 		CF0638A61D0978F800F8ECD1 /* WZPhotoBrowser */ = {
 			isa = PBXGroup;
 			children = (
+				CF9B27AF1D2D03E30092BA1C /* WZPhotoCollectionViewFlowLayout.swift */,
 				CF0638A71D0978F800F8ECD1 /* LoadImageProgressView.swift */,
 				CF0638A81D0978F800F8ECD1 /* PhotoCollectionCell.swift */,
 				CF0638A91D0978F800F8ECD1 /* PhotoTransitionDismissAnimation.swift */,
 				CF0638AA1D0978F800F8ECD1 /* PhotoTransitionPresentAnimation.swift */,
 				CF0638AD1D0978F800F8ECD1 /* WZPhotoBrowser.swift */,
 				CF0638AF1D0978F800F8ECD1 /* ZoomImageScrollView.swift */,
-				CF04DDDF1D110B9E008DDA50 /* WZPhotoCollectionViewFlowLayout.swift */,
 			);
 			path = WZPhotoBrowser;
 			sourceTree = "<group>";
@@ -144,7 +136,6 @@
 				CF0638A61D0978F800F8ECD1 /* WZPhotoBrowser */,
 				CFCA33F61B95968E00B05827 /* AppDelegate.swift */,
 				CFCA33F81B95968E00B05827 /* ViewController.swift */,
-				CFB0491F1B9D5D1E00C8EDC4 /* MuColor.swift */,
 				CFCA33FA1B95968E00B05827 /* Main.storyboard */,
 				CFCA33FD1B95968E00B05827 /* Assets.xcassets */,
 				CFCA33FF1B95968E00B05827 /* LaunchScreen.storyboard */,
@@ -152,10 +143,7 @@
 				CF5749E31B96D0EF00FECAE3 /* WZPhotoBrowser-Bridging-Header.h */,
 				CF5749E41B9714A200FECAE3 /* VisitedMeCollectionViewCell.swift */,
 				CF5749E51B9714A200FECAE3 /* VisitedMeCollectionViewCell.xib */,
-				CFEEFDAF1C015894003B84F8 /* MuView.swift */,
-				CFEEFDB01C015894003B84F8 /* UIImageView.swift */,
-				CFEEFDB31C0158F0003B84F8 /* String+ProcessString.swift */,
-				CFEEFDB51C015955003B84F8 /* MuTools.swift */,
+				CF06952F1D503FD70031E670 /* UIColor+Extension.swift */,
 			);
 			path = WZPhotoBrowser;
 			sourceTree = "<group>";
@@ -270,33 +258,29 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CFEEFDB61C015955003B84F8 /* MuTools.swift in Sources */,
-				CFEEFDB21C015894003B84F8 /* UIImageView.swift in Sources */,
 				CFFF26931BE0F4EC006E9575 /* UIImageView+WebCache.m in Sources */,
 				CFFF268A1BE0F4EC006E9575 /* SDWebImageDecoder.m in Sources */,
 				CFFF268D1BE0F4EC006E9575 /* SDWebImageManager.m in Sources */,
 				CFFF26871BE0F4EC006E9575 /* NSData+ImageContentType.m in Sources */,
 				CF0638B31D0978F800F8ECD1 /* PhotoTransitionPresentAnimation.swift in Sources */,
 				CFFF26891BE0F4EC006E9575 /* SDWebImageCompat.m in Sources */,
-				CFB049201B9D5D1E00C8EDC4 /* MuColor.swift in Sources */,
 				CFFF26941BE0F4EC006E9575 /* UIView+WebCacheOperation.m in Sources */,
 				CFCA33F91B95968E00B05827 /* ViewController.swift in Sources */,
 				CFFF268F1BE0F4EC006E9575 /* UIButton+WebCache.m in Sources */,
+				CF0695301D503FD70031E670 /* UIColor+Extension.swift in Sources */,
 				CFFF268E1BE0F4EC006E9575 /* SDWebImagePrefetcher.m in Sources */,
 				CF0638B61D0978F800F8ECD1 /* WZPhotoBrowser.swift in Sources */,
 				CF0638B01D0978F800F8ECD1 /* LoadImageProgressView.swift in Sources */,
 				CFFF268C1BE0F4EC006E9575 /* SDWebImageDownloaderOperation.m in Sources */,
-				CFEEFDB11C015894003B84F8 /* MuView.swift in Sources */,
 				CF5749E61B9714A200FECAE3 /* VisitedMeCollectionViewCell.swift in Sources */,
 				CFFF26921BE0F4EC006E9575 /* UIImageView+HighlightedWebCache.m in Sources */,
 				CF0638B81D0978F800F8ECD1 /* ZoomImageScrollView.swift in Sources */,
 				CFFF26911BE0F4EC006E9575 /* UIImage+MultiFormat.m in Sources */,
-				CF04DDE01D110B9E008DDA50 /* WZPhotoCollectionViewFlowLayout.swift in Sources */,
+				CF9B27B01D2D03E30092BA1C /* WZPhotoCollectionViewFlowLayout.swift in Sources */,
 				CF0638B11D0978F800F8ECD1 /* PhotoCollectionCell.swift in Sources */,
 				CFFF26881BE0F4EC006E9575 /* SDImageCache.m in Sources */,
 				CFCA33F71B95968E00B05827 /* AppDelegate.swift in Sources */,
 				CFFF26901BE0F4EC006E9575 /* UIImage+GIF.m in Sources */,
-				CFEEFDB41C0158F0003B84F8 /* String+ProcessString.swift in Sources */,
 				CFFF268B1BE0F4EC006E9575 /* SDWebImageDownloader.m in Sources */,
 				CF0638B21D0978F800F8ECD1 /* PhotoTransitionDismissAnimation.swift in Sources */,
 			);

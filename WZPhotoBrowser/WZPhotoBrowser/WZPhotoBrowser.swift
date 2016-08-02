@@ -242,6 +242,25 @@ class WZPhotoBrowser: UIViewController {
       
     }
   }
+  
+  private func loadImageToMemory(withIndex index: Int) {
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+      
+      let imageCache = SDImageCache.sharedImageCache()
+      
+      guard let imageNum = self.delegate?.numberOfImage(self) else { return }
+      
+      guard index >= 0 && index < imageNum else { return }
+      
+      guard let imageUrl = self.delegate?.displayWebImageWithIndex(self, index: index) else { return }
+      
+      guard imageCache.diskImageExistsWithKey(imageUrl) else { return }
+      
+      SDImageCache.sharedImageCache().imageFromDiskCacheForKey(imageUrl)
+      
+    }
+  }
 }
 
 extension WZPhotoBrowser: UICollectionViewDataSource {
@@ -262,11 +281,14 @@ extension WZPhotoBrowser: UICollectionViewDataSource {
     
     if let image = delegate?.displayLocalImageWithIndex?(self, index: indexPath.row) {
       
-      cell.zoomImageScrollView.setLocalImage(image)
+      cell.setLocalImage(image)
       
     } else {
       
-      cell.zoomImageScrollView.setImageUrl(delegate?.displayWebImageWithIndex(self, index: indexPath.row) ?? "", placeholderImage: delegate?.placeHolderImageWithIndex?(self, index: indexPath.row), loadNow: loadNow)
+      cell.setImageUrl(delegate?.displayWebImageWithIndex(self, index: indexPath.row) ?? "", placeholderImage: delegate?.placeHolderImageWithIndex?(self, index: indexPath.row), loadNow: loadNow)
+      
+      loadImageToMemory(withIndex: indexPath.row - 1)
+      loadImageToMemory(withIndex: indexPath.row + 1)
       
     }
     
@@ -290,3 +312,4 @@ extension WZPhotoBrowser: UICollectionViewDelegateFlowLayout {
   }
   
 }
+

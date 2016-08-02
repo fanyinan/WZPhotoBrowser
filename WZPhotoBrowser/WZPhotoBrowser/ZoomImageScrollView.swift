@@ -17,7 +17,7 @@ class ZoomImageScrollView: UIScrollView {
   private var netImageSize: CGSize!
   private var isLoaded = false // 是否加载完大图
   private var isAnimation = false //标识此刻是否为放大动画，如果是则手动调整大小执行moveFrameToCenter，不执行layoutsubviews的moveFrameToCenter
-  private var progressView: LoadImageProgressView?
+  private var progressView: LoadImageProgressView!
   private var initialZoomScale: CGFloat! //保存初始比例，供双击放大后还原使用
   
   let maxScale: CGFloat = 3
@@ -30,7 +30,6 @@ class ZoomImageScrollView: UIScrollView {
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
   }
-  
   
   override func layoutSubviews() {
     super.layoutSubviews()
@@ -53,15 +52,21 @@ class ZoomImageScrollView: UIScrollView {
     minimumZoomScale = 1
     maximumZoomScale = 1
     zoomScale = 1
+    imageView.frame = bounds
+    contentOffset = CGPoint.zero
+    
     isLoaded = false
     placeHolderImageSize = nil
+    
+    let currentTag = (tag + 1) % 100
+    tag = currentTag
     
     //如果图片没有被缓存过则显示默认图片站位
     if !SDImageCache.sharedImageCache().diskImageExistsWithKey(imageUrl) {
       placeHolderImageSize = placeholderImage?.size
       
       self.setImage(placeholderImage)
-      initProgressView()
+      progressView.hidden = false
       
       guard loadNow else {
         return
@@ -69,19 +74,24 @@ class ZoomImageScrollView: UIScrollView {
       
       imageView.sd_setImageWithURL(NSURL(string: imageUrl), placeholderImage: placeholderImage, options: .AvoidAutoSetImage, progress: { (current, total) -> Void in
         
-        self.progressView!.progress = CGFloat(current) / CGFloat(total)
+        guard currentTag == self.tag else { return }
         
-        }) { (image, error, SDImageCacheType, url) -> Void in
-          if error == nil{
-            
-            self.progressView?.dismiss()
-            self.didFetchImageWith(image)
-            
-          }
+        self.progressView.progress = CGFloat(current) / CGFloat(total)
+        
+      }) { (image, error, SDImageCacheType, url) -> Void in
+        if error == nil{
+          
+          guard currentTag == self.tag else { return }
+          
+          self.progressView.dismiss()
+          self.didFetchImageWith(image)
+          
+        }
       }
       
     } else {
       
+      progressView.hidden = true
       let image = SDImageCache.sharedImageCache().imageFromDiskCacheForKey(imageUrl)
       didFetchImageWith(image)
       
@@ -112,7 +122,7 @@ class ZoomImageScrollView: UIScrollView {
   }
   
   func imageViewDoubleTap(tap: UITapGestureRecognizer) {
-
+    
     guard isLoaded else { return }
     
     guard zoomScale == initialZoomScale else {
@@ -134,7 +144,7 @@ class ZoomImageScrollView: UIScrollView {
     //当zoomScale为1时还是有瑕疵，待改进
     let zoomX = position.x * zoomScale / imageView.frame.width * frame.width / zoomScale - zoomWidth / 2
     let zoomY = position.y * zoomScale / imageView.frame.height * frame.height / zoomScale - zoomHeight / 2
-
+    
     //此值为在zoomscale为1时图片上的尺寸
     //用于表示要把这个以点击位置为center的rect区域缩放zoomRectScale倍
     //此处需要解决：当以zoomRectScale放大后，图片的高超过屏幕的高度，此时不应该再动画的时候执行moveFrameToCenter，而应根据点击位置调整
@@ -155,7 +165,7 @@ class ZoomImageScrollView: UIScrollView {
     
     //imageview
     imageView = UIImageView(frame: CGRectZero)
-    imageView.backgroundColor = UIColor.yellowColor()
+    imageView.backgroundColor = UIColor.blackColor()
     imageView.contentMode = .ScaleAspectFill
     imageView.userInteractionEnabled = true
     
@@ -165,38 +175,37 @@ class ZoomImageScrollView: UIScrollView {
     doubleTap = UITapGestureRecognizer(target: self, action: #selector(ZoomImageScrollView.imageViewDoubleTap(_:)))
     doubleTap.numberOfTapsRequired = 2
     imageView.addGestureRecognizer(doubleTap)
-//    singleTap.requireGestureRecognizerToFail(doubleTap)
+    singleTap.requireGestureRecognizerToFail(doubleTap)
     
     addSubview(imageView)
     
+    initProgressView()
   }
   
   private func initProgressView() {
     
-    for view in subviews {
-      if view.isKindOfClass(LoadImageProgressView) {
-        return
-      }
-    }
     let progressWidth: CGFloat = 100
     let progressheight: CGFloat = 100
     let x: CGFloat = (CGRectGetWidth(frame) - progressWidth) / 2
     let y: CGFloat = (CGRectGetHeight(frame) - progressheight) / 2
     progressView = LoadImageProgressView(frame: CGRect(x: x, y: y, width: progressWidth, height: progressWidth))
-    addSubview(progressView!)
+    progressView.autoresizingMask = [.FlexibleTopMargin, .FlexibleBottomMargin, .FlexibleLeftMargin, .FlexibleRightMargin]
+    addSubview(progressView)
     
   }
   
   private func setImage(image: UIImage?) {
     
     if image == nil {
+      progressView.setWhiteStyle()
       return
     }
     
+    progressView.setBlackStyle()
     imageView.image = image
     //这里设置imageview的size为imagesize在当前缩放比例下的size
     imageView.frame = CGRect(x: 0, y: 0, width: image!.size.width * zoomScale, height: image!.size.height * zoomScale)
-//    contentSize = imageView.frame.size //不用手动设置
+    //    contentSize = imageView.frame.size //不用手动设置
     
     calculateZoomScale()
   }
@@ -244,7 +253,7 @@ class ZoomImageScrollView: UIScrollView {
       
       setNeedsLayout()
       layoutIfNeeded()
-
+      
       isAnimation = true
       UIView.animateWithDuration(0.2, animations: { () -> Void in
         
@@ -260,7 +269,7 @@ class ZoomImageScrollView: UIScrollView {
       minimumZoomScale = minScale
       zoomScale = minimumZoomScale
       initialZoomScale = zoomScale
-
+      
     }
     
     setNeedsLayout()

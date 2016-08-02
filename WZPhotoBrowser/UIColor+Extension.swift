@@ -54,36 +54,4 @@ extension UIColor {
     return UIColor(red: (CGFloat(r!))/255.0, green: (CGFloat(g!))/255.0, blue: (CGFloat(b!))/255.0, alpha: alpha)
   }
   
-  /**
-  随机颜色
-  
-  - returns: 颜色
-  */
-  class func randomColor() -> UIColor{
-    
-    let hue = CGFloat(arc4random() % 256) / 256.0
-    let saturation = CGFloat(arc4random() % 128) / 256.0 + 0.5
-    let brightness : CGFloat = CGFloat(arc4random() % 128) / 256.0 + 0.5
-    print("\(hue) \(saturation) \(brightness)")
-    return UIColor(hue: hue, saturation: saturation, brightness: brightness, alpha: 1)
-  }
-  
-  /**
-  color 转 image
-  
-  - parameter color: color description
-  
-  - returns: return value description
-  */
-  func createImageWithColor() -> UIImage {
-    let theColor = self
-    let rect = CGRectMake(0, 0, 1, 1)
-    UIGraphicsBeginImageContext(rect.size)
-    let context : CGContext? = UIGraphicsGetCurrentContext()
-    CGContextSetFillColorWithColor(context, theColor.CGColor)
-    CGContextFillRect(context, rect)
-    let targetImage = UIGraphicsGetImageFromCurrentImageContext()
-    UIGraphicsEndImageContext()
-    return targetImage
-  }
 }

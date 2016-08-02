@@ -9,8 +9,10 @@
 import UIKit
 
 class LoadImageProgressView: UIView {
+  
+  var color: UIColor!
   var progress: CGFloat = 0 {
-    didSet{      
+    didSet{
       if progress >= 1.0 {
         hidden = true
       } else {
@@ -25,10 +27,12 @@ class LoadImageProgressView: UIView {
     super.init(frame: frame)
     
     initView()
+    setBlackStyle()
   }
   
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
+    
     initView()
     
   }
@@ -44,6 +48,16 @@ class LoadImageProgressView: UIView {
     hidden = true
   }
   
+  func setWhiteStyle() {
+    color = UIColor.hexStringToColor("cccccc", alpha: 0.6)
+    setNeedsDisplay()
+  }
+  
+  func setBlackStyle() {
+    color = UIColor.hexStringToColor("111111", alpha: 0.6)
+    setNeedsDisplay()
+  }
+  
   override func drawRect(rect: CGRect) {
     let ctx = UIGraphicsGetCurrentContext()!
     
@@ -54,14 +68,13 @@ class LoadImageProgressView: UIView {
     
     let lineWidth = rect.size.width / 2
     
-    UIColor.hexStringToColor("111111", alpha: 0.6).set()
+    color.set()
     CGContextSetLineWidth(ctx, lineWidth)
     CGContextAddArc(ctx, xCenter, yCenter, radius + lineWidth / 2 + 5, CGFloat(0), CGFloat(M_PI * 2), Int32(1))
     
     CGContextStrokePath(ctx)
     
-    UIColor.hexStringToColor("111111", alpha: 0.3).set()
-    
+    color.set()
     CGContextSetLineWidth(ctx, 1)
     CGContextMoveToPoint(ctx, xCenter, yCenter)
     
