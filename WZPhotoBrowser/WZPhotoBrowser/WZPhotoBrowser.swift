@@ -300,10 +300,10 @@ extension WZPhotoBrowser: UICollectionViewDelegateFlowLayout {
     
     //更新currentIndex
     let cellPoint = view.convert(mainCollectionView.center, to: mainCollectionView)
-    let showPhotoIndex = mainCollectionView.indexPathForItem(at: cellPoint)
     
-    if let _showPhotoIndex = showPhotoIndex , currentIndex != (_showPhotoIndex as NSIndexPath).row {
-      currentIndex = (showPhotoIndex! as NSIndexPath).row
-    }
+    guard let showPhotoIndex = mainCollectionView.indexPathForItem(at: cellPoint)?.row else { return }
+    guard currentIndex != showPhotoIndex else { return }
+    
+    currentIndex = showPhotoIndex
   }
 }
