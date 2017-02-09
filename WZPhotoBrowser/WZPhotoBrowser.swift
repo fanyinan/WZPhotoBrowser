@@ -52,19 +52,20 @@ public protocol WZPhotoBrowserAnimatedTransitionDataSource: NSObjectProtocol {
 open class WZPhotoBrowser: UIViewController {
   
   fileprivate var mainCollectionView: UICollectionView!
-  fileprivate var prepareShowCell: PhotoCollectionCell!
+  private var prepareShowCell: PhotoCollectionCell!
   
-  weak var delegate: WZPhotoBrowserDelegate?
-  var quitBlock: (() -> Void)?
-  fileprivate(set) var currentIndex: Int = 0 {
+  fileprivate weak var delegate: WZPhotoBrowserDelegate?
+  fileprivate var isDidShow = false //用于标记次VC是否已经呈现
+  private var isHideStatusBar = false
+  
+  public var isAnimate = false //用于设置是否经过动画跳转来 ，由PhotoTransitionPushAnimation设置
+  public var doubleTapMagnify = false
+  public var quitBlock: (() -> Void)?
+  public var currentIndex: Int = 0 {
     didSet{
       photoDidChange()
     }
   }
-  public var isAnimate = false //用于设置是否经过动画跳转来 ，由PhotoTransitionPushAnimation设置
-  var isDidShow = false //用于标记次VC是否已经呈现
-  var isHideStatusBar = false
-  var doubleTapMagnify = false
   
   let IDENTIFIER_IMAGE_CELL = "ZoomImageCell"
   let padding: CGFloat = 6
@@ -180,23 +181,23 @@ open class WZPhotoBrowser: UIViewController {
     
   }
   
-  func moveToPhoto(with index: Int) {
+  open func moveToPhoto(with index: Int) {
     
     mainCollectionView.setContentOffset(CGPoint(x: CGFloat(index) * mainCollectionView.frame.width, y: 0), animated: false)
     
   }
   
-  func onClickPhoto() {
+  open func onClickPhoto() {
     
     quitBlock?()
     quitBlock = nil
   }
   
-  func photoDidChange() {
+  open func photoDidChange() {
     
   }
   
-  func reload() {
+  open func reload() {
     
     mainCollectionView.reloadData()
     moveToPhoto(with: delegate?.firstDisplayIndex?(self) ?? 0)
