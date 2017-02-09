@@ -49,7 +49,7 @@ class LoadImageProgressView: UIView {
   }
   
   func setWhiteStyle() {
-    color = UIColor.hexStringToColor("cccccc", alpha: 0.6)
+    color = UIColor(red: 204.0/255.0, green: 204.0/255.0, blue: 204.0/255.0, alpha: 204.0/255.0)
     setNeedsDisplay()
   }
   

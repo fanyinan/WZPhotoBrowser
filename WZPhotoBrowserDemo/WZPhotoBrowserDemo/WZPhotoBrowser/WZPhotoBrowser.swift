@@ -75,11 +75,7 @@ class WZPhotoBrowser: UIViewController {
     self.quitBlock = quitBlock
     super.init(nibName: nil, bundle: nil)
   }
-  
-  deinit {
-    print("WZPhotoBrowser deinit")
-  }
-  
+
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }

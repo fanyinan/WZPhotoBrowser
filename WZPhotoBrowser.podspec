@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "WZPhotoBrowser"
-  s.version      = "0.0.1"
+  s.version      = "0.0.2"
   s.summary      = "Just A photoBrowser."
 
   # This description is used to generate tags and improve search results.
@@ -25,12 +25,14 @@ Pod::Spec.new do |s|
   #   * Write the description between the DESC delimiters below.
   #   * Finally, don't worry about the indent, CocoaPods strips it!
   s.description  = <<-DESC
+
+  local photobrowser
                    DESC
 
   s.homepage     = "https://github.com/fanyinan/WZPhotoBrowser"
   # s.screenshots  = "www.example.com/screenshots_1.gif", "www.example.com/screenshots_2.gif"
 
-
+a
   # ―――  Spec License  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   #
   #  Licensing your code is important. See http://choosealicense.com for more info.
@@ -79,8 +81,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  # s.source       = { :git => "http://EXAMPLE/WZPhotoBrowser.git", :tag => "#{s.version}" }
-
+  s.source = { :git => "/Users/fanyinan/Documents/MyProject/WZPhotoBrowser", :tag => '0.0.2' }
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   #
@@ -116,7 +117,7 @@ Pod::Spec.new do |s|
   #  the lib prefix of their name.
   #
 
-  s.framework  = "SDWebImage"
+  #s.framework  = "SDWebImage"
   # s.frameworks = "SomeFramework", "AnotherFramework"
 
   # s.library   = "iconv"
@@ -132,6 +133,6 @@ Pod::Spec.new do |s|
   # s.requires_arc = true
 
   # s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
-  # s.dependency "JSONKit", "~> 1.4"
+  s.dependency "SDWebImage", "~> 4.0.0"
 
 end

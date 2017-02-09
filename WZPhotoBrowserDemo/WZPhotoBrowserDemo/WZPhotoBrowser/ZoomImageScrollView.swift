@@ -93,9 +93,12 @@ class ZoomImageScrollView: UIScrollView {
     
     self.imageView.sd_setImage(with: URL(string: imageUrl), placeholderImage: placeholderImage, options: .avoidAutoSetImage, progress: { (current, total, URL) -> Void in
       
-      guard currentTag == self.tag else { return }
-      
-      self.progressView.progress = CGFloat(current) / CGFloat(total)
+      DispatchQueue.main.async {
+        
+        guard currentTag == self.tag else { return }
+        
+        self.progressView.progress = CGFloat(current) / CGFloat(total)
+      }
       
     }) { (image, error, SDImageCacheType, url) -> Void in
       
