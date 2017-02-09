@@ -10,16 +10,16 @@ import UIKit
 
 class WZPhotoCollectionViewFlowLayout: UICollectionViewFlowLayout {
 
-  var indexPathsToAnimation: [NSIndexPath] = []
+  var indexPathsToAnimation: [IndexPath] = []
 
-  override func prepareLayout() {
-    super.prepareLayout()
+  override func prepare() {
+    super.prepare()
   }
   
-  override func prepareForCollectionViewUpdates(updateItems: [UICollectionViewUpdateItem]) {
+  override func prepare(forCollectionViewUpdates updateItems: [UICollectionViewUpdateItem]) {
     
     for updateItem in updateItems {
-      if updateItem.updateAction == .Delete {
+      if updateItem.updateAction == .delete {
         if let index = updateItem.indexPathBeforeUpdate {
           indexPathsToAnimation += [index]
         }
@@ -27,16 +27,16 @@ class WZPhotoCollectionViewFlowLayout: UICollectionViewFlowLayout {
     }
   }
   
-  override func finalLayoutAttributesForDisappearingItemAtIndexPath(itemIndexPath: NSIndexPath) -> UICollectionViewLayoutAttributes? {
+  override func finalLayoutAttributesForDisappearingItem(at itemIndexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
     
-    let attr = layoutAttributesForItemAtIndexPath(itemIndexPath)?.copy() as! UICollectionViewLayoutAttributes
+    let attr = layoutAttributesForItem(at: itemIndexPath)?.copy() as! UICollectionViewLayoutAttributes
 
     if indexPathsToAnimation.contains(itemIndexPath) {
       
       attr.alpha = 0.0
-      attr.transform = CGAffineTransformMakeScale(0.2, 0.2)
+      attr.transform = CGAffineTransform(scaleX: 0.2, y: 0.2)
       
-      indexPathsToAnimation.removeAtIndex(indexPathsToAnimation.indexOf(itemIndexPath)!)
+      indexPathsToAnimation.remove(at: indexPathsToAnimation.index(of: itemIndexPath)!)
       
     }
     

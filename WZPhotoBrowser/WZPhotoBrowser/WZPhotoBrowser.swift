@@ -7,11 +7,12 @@
 //
 
 import UIKit
+import SDWebImage
 
 protocol WZPhotoBrowserAnimatedTransitionDataSource: NSObjectProtocol {
   
   //如果index为nil则返回当前点击的即将跳转图片浏器的图片的frame
-  func getImageViewFrameInScreenWith(index: Int?) -> CGRect?
+  func getImageViewFrameInScreenWith(_ index: Int?) -> CGRect?
   
   func getImageForAnimation() -> UIImage?
   
@@ -19,43 +20,43 @@ protocol WZPhotoBrowserAnimatedTransitionDataSource: NSObjectProtocol {
 
 @objc protocol WZPhotoBrowserAnimatedTransitionDelegate: NSObjectProtocol {
   
-  optional func animatedTransitionBeginPresentViewController(animatedImageView: UIImageView)
+  @objc optional func animatedTransitionBeginPresentViewController(_ animatedImageView: UIImageView)
   
-  optional func animateInBlockWhenPresentingViewController(animatedImageView: UIImageView) -> ()->Void
+  @objc optional func animateInBlockWhenPresentingViewController(_ animatedImageView: UIImageView) -> ()->Void
   
-  optional func animatedTransitionEndPresentViewController(animatedImageView: UIImageView)
+  @objc optional func animatedTransitionEndPresentViewController(_ animatedImageView: UIImageView)
   
-  optional func animatedTransitionBeginDismissViewController(animatedImageView: UIImageView)
+  @objc optional func animatedTransitionBeginDismissViewController(_ animatedImageView: UIImageView)
   
-  optional func animateBlockWhenDismissingViewController(animatedImageView: UIImageView) -> ()->Void
+  @objc optional func animateBlockWhenDismissingViewController(_ animatedImageView: UIImageView) -> ()->Void
   
-  optional func animatedTransitionEndDismissViewController(animatedImageView: UIImageView)
+  @objc optional func animatedTransitionEndDismissViewController(_ animatedImageView: UIImageView)
   
 }
 
 @objc protocol WZPhotoBrowserDelegate: NSObjectProtocol {
   
   //图片总数
-  func numberOfImage(photoBrowser: WZPhotoBrowser) -> Int
+  func numberOfImage(_ photoBrowser: WZPhotoBrowser) -> Int
   //加载网络图片
-  func displayWebImageWithIndex(photoBrowser: WZPhotoBrowser, index: Int) -> String
+  @objc optional func displayWebImageWithIndex(_ photoBrowser: WZPhotoBrowser, index: Int) -> String
   //加载本地图片，较网络图片优先判断
-  optional func displayLocalImageWithIndex(photoBrowser: WZPhotoBrowser, index: Int) -> UIImage?
+  @objc optional func displayLocalImageWithIndex(_ photoBrowser: WZPhotoBrowser, index: Int) -> UIImage?
   //加载网络图片时的占位图片
-  optional func placeHolderImageWithIndex(photoBrowser: WZPhotoBrowser, index: Int) -> UIImage?
+  @objc optional func placeHolderImageWithIndex(_ photoBrowser: WZPhotoBrowser, index: Int) -> UIImage?
   //第一次进入时显示的图片index，默认为0
-  optional func firstDisplayIndex(photoBrowser: WZPhotoBrowser) -> Int
+  @objc optional func firstDisplayIndex(_ photoBrowser: WZPhotoBrowser) -> Int
   
 }
 
 class WZPhotoBrowser: UIViewController {
   
-  private var mainCollectionView: UICollectionView!
-  private var prepareShowCell: PhotoCollectionCell!
+  fileprivate var mainCollectionView: UICollectionView!
+  fileprivate var prepareShowCell: PhotoCollectionCell!
   
   weak var delegate: WZPhotoBrowserDelegate?
   var quitBlock: (() -> Void)?
-  private(set) var currentIndex: Int = 0 {
+  fileprivate(set) var currentIndex: Int = 0 {
     didSet{
       photoDidChange()
     }
@@ -63,6 +64,7 @@ class WZPhotoBrowser: UIViewController {
   var isAnimate = false //用于设置是否经过动画跳转来 ，由PhotoTransitionPushAnimation设置
   var isDidShow = false //用于标记次VC是否已经呈现
   var isHideStatusBar = false
+  var doubleTapMagnify = false
   
   let IDENTIFIER_IMAGE_CELL = "ZoomImageCell"
   let padding: CGFloat = 6
@@ -75,7 +77,7 @@ class WZPhotoBrowser: UIViewController {
   }
   
   deinit {
-    print("deinit")
+    print("WZPhotoBrowser deinit")
   }
   
   required init?(coder aDecoder: NSCoder) {
@@ -85,11 +87,11 @@ class WZPhotoBrowser: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    initView()
+    setupUI()
     
   }
   
-  override func viewWillAppear(animated: Bool) {
+  override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     
     moveToPhoto(with: delegate?.firstDisplayIndex?(self) ?? 0)
@@ -107,11 +109,9 @@ class WZPhotoBrowser: UIViewController {
       view.setNeedsLayout()
       view.layoutIfNeeded()
     }
-    
-    
   }
   
-  override func viewDidAppear(animated: Bool) {
+  override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
     
     isHideStatusBar = true
@@ -119,10 +119,10 @@ class WZPhotoBrowser: UIViewController {
   }
   
   override func viewWillLayoutSubviews() {
-    prepareShowCell = mainCollectionView.cellForItemAtIndexPath(NSIndexPath(forItem: currentIndex, inSection: 0)) as? PhotoCollectionCell
+    prepareShowCell = mainCollectionView.cellForItem(at: IndexPath(item: currentIndex, section: 0)) as? PhotoCollectionCell
   }
   
-  override func viewWillDisappear(animated: Bool) {
+  override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
     hideNavigationBar()
   }
@@ -132,21 +132,21 @@ class WZPhotoBrowser: UIViewController {
     // Dispose of any resources that can be recreated.
   }
   
-  override func prefersStatusBarHidden() -> Bool {
+  override var prefersStatusBarHidden : Bool {
     return isHideStatusBar
   }
   
-  private func initView() {
+  fileprivate func setupUI() {
     
     automaticallyAdjustsScrollViewInsets = false
-    view.backgroundColor = UIColor.blackColor()
+    view.backgroundColor = UIColor.black
     view.clipsToBounds = true
     
     initMainTableView()
     
   }
   
-  private func initMainTableView() {
+  fileprivate func initMainTableView() {
     
     let mainCollectionViewFrame = CGRect(x: -padding, y: view.bounds.minY, width: view.bounds.width + padding * 2, height: view.bounds.height)
     
@@ -154,14 +154,16 @@ class WZPhotoBrowser: UIViewController {
     mainCollectionViewLayout.itemSize = mainCollectionViewFrame.size
     mainCollectionViewLayout.minimumInteritemSpacing = 0
     mainCollectionViewLayout.minimumLineSpacing = 0
-    mainCollectionViewLayout.scrollDirection = .Horizontal
+    mainCollectionViewLayout.scrollDirection = .horizontal
     
     mainCollectionView = UICollectionView(frame: mainCollectionViewFrame, collectionViewLayout: mainCollectionViewLayout)
     mainCollectionView.delegate = self
     mainCollectionView.dataSource = self
-    mainCollectionView.pagingEnabled = true
-    mainCollectionView.backgroundColor = UIColor.blackColor()
-    mainCollectionView.registerClass(PhotoCollectionCell.self, forCellWithReuseIdentifier: "PhotoCollectionCell")
+    mainCollectionView.isPagingEnabled = true
+    mainCollectionView.backgroundColor = UIColor.black
+    mainCollectionView.register(PhotoCollectionCell.self, forCellWithReuseIdentifier: "PhotoCollectionCell")
+    mainCollectionView.showsHorizontalScrollIndicator = false
+    
     view.addSubview(mainCollectionView)
     
   }
@@ -169,13 +171,13 @@ class WZPhotoBrowser: UIViewController {
   /**
    收起navigationbar 暂不用
    */
-  private func hideNavigationBar() {
+  fileprivate func hideNavigationBar() {
     
     if navigationController == nil {
       return
     }
     
-    let isHidden = navigationController!.navigationBarHidden
+    let isHidden = navigationController!.isNavigationBarHidden
     navigationController!.setNavigationBarHidden(!isHidden, animated: true)
     //    UIApplication.sharedApplication().setStatusBarStyle(isHidden ? .Default : .LightContent, animated: false)
     
@@ -184,7 +186,7 @@ class WZPhotoBrowser: UIViewController {
   
   func moveToPhoto(with index: Int) {
     
-    mainCollectionView.setContentOffset(CGPoint(x: CGFloat(index) * CGRectGetWidth(mainCollectionView.frame), y: 0), animated: false)
+    mainCollectionView.setContentOffset(CGPoint(x: CGFloat(index) * mainCollectionView.frame.width, y: 0), animated: false)
     
   }
   
@@ -207,19 +209,19 @@ class WZPhotoBrowser: UIViewController {
   //for transitionAnimation
   func getCurrentDisplayImageRect() -> CGRect {
     
-    let cell = (mainCollectionView.cellForItemAtIndexPath(NSIndexPath(forItem: currentIndex, inSection: 0)) as? PhotoCollectionCell) ?? prepareShowCell
-    return cell?.zoomImageScrollView.getImageRectForAnimation() ?? CGRectZero
+    let cell = (mainCollectionView.cellForItem(at: IndexPath(item: currentIndex, section: 0)) as? PhotoCollectionCell) ?? prepareShowCell
+    return cell?.zoomImageScrollView.getImageRectForAnimation() ?? CGRect.zero
   }
   
   //for transitionAnimation
-  func setMainTableViewHiddenForAnimation(isHidden: Bool) {
-    mainCollectionView.hidden = isHidden
+  func setMainTableViewHiddenForAnimation(_ isHidden: Bool) {
+    mainCollectionView.isHidden = isHidden
   }
   
   //for transitionAnimation dismiss
   func getCurrentDisplayImage() -> UIImage? {
     
-    let cell = mainCollectionView.cellForItemAtIndexPath(NSIndexPath(forItem: currentIndex, inSection: 0)) as? PhotoCollectionCell
+    let cell = mainCollectionView.cellForItem(at: IndexPath(item: currentIndex, section: 0)) as? PhotoCollectionCell
     return cell?.zoomImageScrollView.getImageForAnimation()
   }
   
@@ -229,35 +231,30 @@ class WZPhotoBrowser: UIViewController {
     if isAnimate {
       
       isDidShow = true
-      let cell = mainCollectionView.cellForItemAtIndexPath(NSIndexPath(forItem: currentIndex, inSection: 0)) as? PhotoCollectionCell
+      let cell = mainCollectionView.cellForItem(at: IndexPath(item: currentIndex, section: 0)) as? PhotoCollectionCell
       if let image = delegate?.displayLocalImageWithIndex?(self, index: currentIndex) {
         
         cell?.zoomImageScrollView.setLocalImage(image)
         
       } else {
         
-        cell?.zoomImageScrollView.setImageUrl(delegate?.displayWebImageWithIndex(self, index: currentIndex) ?? "", placeholderImage: delegate?.placeHolderImageWithIndex?(self, index: currentIndex), loadNow: true)
+        cell?.zoomImageScrollView.setImageUrl(delegate?.displayWebImageWithIndex?(self, index: currentIndex) ?? "", placeholderImage: delegate?.placeHolderImageWithIndex?(self, index: currentIndex), loadNow: true)
         
       }
-      
     }
   }
   
-  private func loadImageToMemory(withIndex index: Int) {
+  fileprivate func loadImageToMemory(withIndex index: Int) {
     
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-      
-      let imageCache = SDImageCache.sharedImageCache()
-      
+    DispatchQueue.global().async {
+            
       guard let imageNum = self.delegate?.numberOfImage(self) else { return }
       
       guard index >= 0 && index < imageNum else { return }
       
-      guard let imageUrl = self.delegate?.displayWebImageWithIndex(self, index: index) else { return }
+      guard let imageUrl = self.delegate?.displayWebImageWithIndex?(self, index: index) else { return }
       
-      guard imageCache.diskImageExistsWithKey(imageUrl) else { return }
-      
-      SDImageCache.sharedImageCache().imageFromDiskCacheForKey(imageUrl)
+      SDImageCache.shared().imageFromCache(forKey: imageUrl)
       
     }
   }
@@ -265,17 +262,17 @@ class WZPhotoBrowser: UIViewController {
 
 extension WZPhotoBrowser: UICollectionViewDataSource {
   
-  func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     return delegate?.numberOfImage(self) ?? 0
   }
   
-  func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     
-    let cell = collectionView.dequeueReusableCellWithReuseIdentifier("PhotoCollectionCell", forIndexPath: indexPath) as! PhotoCollectionCell
+    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCollectionCell", for: indexPath) as! PhotoCollectionCell
     
     cell.zoomImageScrollView.addImageTarget(self, action: #selector(WZPhotoBrowser.onClickPhoto))
-    
     cell.padding = padding
+    cell.zoomImageScrollView.doubleTapMagnify = doubleTapMagnify
     
     let loadNow = !(isAnimate && !isDidShow && currentIndex == indexPath.row)
     
@@ -285,7 +282,7 @@ extension WZPhotoBrowser: UICollectionViewDataSource {
       
     } else {
       
-      cell.setImageUrl(delegate?.displayWebImageWithIndex(self, index: indexPath.row) ?? "", placeholderImage: delegate?.placeHolderImageWithIndex?(self, index: indexPath.row), loadNow: loadNow)
+      cell.setImageUrl(delegate?.displayWebImageWithIndex?(self, index: indexPath.row) ?? "", placeholderImage: delegate?.placeHolderImageWithIndex?(self, index: indexPath.row), loadNow: loadNow)
       
       loadImageToMemory(withIndex: indexPath.row - 1)
       loadImageToMemory(withIndex: indexPath.row + 1)
@@ -299,17 +296,14 @@ extension WZPhotoBrowser: UICollectionViewDataSource {
 
 extension WZPhotoBrowser: UICollectionViewDelegateFlowLayout {
   
-  func scrollViewDidScroll(scrollView: UIScrollView) {
+  func scrollViewDidScroll(_ scrollView: UIScrollView) {
     
     //更新currentIndex
-    let cellPoint = view.convertPoint(mainCollectionView.center, toView: mainCollectionView)
-    let showPhotoIndex = mainCollectionView.indexPathForItemAtPoint(cellPoint)
+    let cellPoint = view.convert(mainCollectionView.center, to: mainCollectionView)
+    let showPhotoIndex = mainCollectionView.indexPathForItem(at: cellPoint)
     
-    if let _showPhotoIndex = showPhotoIndex where currentIndex != _showPhotoIndex {
-      currentIndex = showPhotoIndex!.row
+    if let _showPhotoIndex = showPhotoIndex , currentIndex != (_showPhotoIndex as NSIndexPath).row {
+      currentIndex = (showPhotoIndex! as NSIndexPath).row
     }
-    
   }
-  
 }
-

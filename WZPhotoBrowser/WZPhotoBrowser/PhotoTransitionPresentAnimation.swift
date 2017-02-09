@@ -17,28 +17,27 @@ class PhotoTransitionPresentAnimation: NSObject, UIViewControllerAnimatedTransit
     super.init()
   }
   
-  func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
+  func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
     return 0.3
   }
   
-  func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
+  func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
     
-    guard let toVC = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey) as? WZPhotoBrowser else { return }
+    guard let toVC = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to) as? WZPhotoBrowser else { return }
     guard let _showVC = showVC else { return }
-    guard let containerView = transitionContext.containerView() else { return }
+    let containerView = transitionContext.containerView
     
-    
-    let toView = toVC.view
+    guard let toView = toVC.view else { return }
     toView.alpha = 0
     toVC.setMainTableViewHiddenForAnimation(true)
     
     containerView.addSubview(toView)
-    containerView.backgroundColor = UIColor.clearColor()
+    containerView.backgroundColor = UIColor.clear
     
-    let imageFrameInScreen = _showVC.getImageViewFrameInScreenWith(nil) ?? CGRectZero
+    let imageFrameInScreen = _showVC.getImageViewFrameInScreenWith(nil) ?? CGRect.zero
     let imageViewForAnimation = UIImageView(frame: imageFrameInScreen)
     containerView.addSubview(imageViewForAnimation)
-    imageViewForAnimation.contentMode = .ScaleAspectFill
+    imageViewForAnimation.contentMode = .scaleAspectFill
     imageViewForAnimation.clipsToBounds = true
     imageViewForAnimation.image = _showVC.getImageForAnimation()
     
@@ -46,7 +45,7 @@ class PhotoTransitionPresentAnimation: NSObject, UIViewControllerAnimatedTransit
     
     (self.showVC as? WZPhotoBrowserAnimatedTransitionDelegate)?.animatedTransitionBeginPresentViewController?(imageViewForAnimation)
     
-    UIView.animateWithDuration(transitionDuration(transitionContext), animations: { () -> Void in
+    UIView.animate(withDuration: transitionDuration(using: transitionContext), animations: { () -> Void in
       
       imageViewForAnimation.frame = finalRect
       imageViewForAnimation.center = toView.center
@@ -55,16 +54,16 @@ class PhotoTransitionPresentAnimation: NSObject, UIViewControllerAnimatedTransit
       //I know it is like a shit, but it's cool
       ((self.showVC as? WZPhotoBrowserAnimatedTransitionDelegate)?.animateInBlockWhenPresentingViewController?(imageViewForAnimation))?()
       
-    }) { _ in
-      
-      toVC.setMainTableViewHiddenForAnimation(false)
-      imageViewForAnimation.removeFromSuperview()
-      transitionContext.completeTransition(true)
-      toVC.completePresent()
-      
-      (self.showVC as? WZPhotoBrowserAnimatedTransitionDelegate)?.animatedTransitionEndPresentViewController?(imageViewForAnimation)
-      
-    }
+      }, completion: { _ in
+        
+        toVC.setMainTableViewHiddenForAnimation(false)
+        imageViewForAnimation.removeFromSuperview()
+        transitionContext.completeTransition(true)
+        toVC.completePresent()
+        
+        (self.showVC as? WZPhotoBrowserAnimatedTransitionDelegate)?.animatedTransitionEndPresentViewController?(imageViewForAnimation)
+        
+    }) 
     
   }
 }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		11F4F9245159F1542F629163 /* Pods_WZPhotoBrowser.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5F713EC62D208DAF78F45C0 /* Pods_WZPhotoBrowser.framework */; };
 		CF0638B01D0978F800F8ECD1 /* LoadImageProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0638A71D0978F800F8ECD1 /* LoadImageProgressView.swift */; };
 		CF0638B11D0978F800F8ECD1 /* PhotoCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0638A81D0978F800F8ECD1 /* PhotoCollectionCell.swift */; };
 		CF0638B21D0978F800F8ECD1 /* PhotoTransitionDismissAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0638A91D0978F800F8ECD1 /* PhotoTransitionDismissAnimation.swift */; };
@@ -22,23 +23,12 @@
 		CFCA33FC1B95968E00B05827 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CFCA33FA1B95968E00B05827 /* Main.storyboard */; };
 		CFCA33FE1B95968E00B05827 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CFCA33FD1B95968E00B05827 /* Assets.xcassets */; };
 		CFCA34011B95968E00B05827 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CFCA33FF1B95968E00B05827 /* LaunchScreen.storyboard */; };
-		CFFF26871BE0F4EC006E9575 /* NSData+ImageContentType.m in Sources */ = {isa = PBXBuildFile; fileRef = CFFF266B1BE0F4EC006E9575 /* NSData+ImageContentType.m */; };
-		CFFF26881BE0F4EC006E9575 /* SDImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = CFFF266D1BE0F4EC006E9575 /* SDImageCache.m */; };
-		CFFF26891BE0F4EC006E9575 /* SDWebImageCompat.m in Sources */ = {isa = PBXBuildFile; fileRef = CFFF266F1BE0F4EC006E9575 /* SDWebImageCompat.m */; };
-		CFFF268A1BE0F4EC006E9575 /* SDWebImageDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = CFFF26711BE0F4EC006E9575 /* SDWebImageDecoder.m */; };
-		CFFF268B1BE0F4EC006E9575 /* SDWebImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = CFFF26731BE0F4EC006E9575 /* SDWebImageDownloader.m */; };
-		CFFF268C1BE0F4EC006E9575 /* SDWebImageDownloaderOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CFFF26751BE0F4EC006E9575 /* SDWebImageDownloaderOperation.m */; };
-		CFFF268D1BE0F4EC006E9575 /* SDWebImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CFFF26771BE0F4EC006E9575 /* SDWebImageManager.m */; };
-		CFFF268E1BE0F4EC006E9575 /* SDWebImagePrefetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = CFFF267A1BE0F4EC006E9575 /* SDWebImagePrefetcher.m */; };
-		CFFF268F1BE0F4EC006E9575 /* UIButton+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = CFFF267C1BE0F4EC006E9575 /* UIButton+WebCache.m */; };
-		CFFF26901BE0F4EC006E9575 /* UIImage+GIF.m in Sources */ = {isa = PBXBuildFile; fileRef = CFFF267E1BE0F4EC006E9575 /* UIImage+GIF.m */; };
-		CFFF26911BE0F4EC006E9575 /* UIImage+MultiFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = CFFF26801BE0F4EC006E9575 /* UIImage+MultiFormat.m */; };
-		CFFF26921BE0F4EC006E9575 /* UIImageView+HighlightedWebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = CFFF26821BE0F4EC006E9575 /* UIImageView+HighlightedWebCache.m */; };
-		CFFF26931BE0F4EC006E9575 /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = CFFF26841BE0F4EC006E9575 /* UIImageView+WebCache.m */; };
-		CFFF26941BE0F4EC006E9575 /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CFFF26861BE0F4EC006E9575 /* UIView+WebCacheOperation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		042833FBDC1A69C48C0CC189 /* Pods-WZPhotoBrowser.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WZPhotoBrowser.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WZPhotoBrowser/Pods-WZPhotoBrowser.debug.xcconfig"; sourceTree = "<group>"; };
+		40FE0F174664B664A817BE0B /* Pods-WZPhotoBrowser.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WZPhotoBrowser.release.xcconfig"; path = "Pods/Target Support Files/Pods-WZPhotoBrowser/Pods-WZPhotoBrowser.release.xcconfig"; sourceTree = "<group>"; };
+		A5F713EC62D208DAF78F45C0 /* Pods_WZPhotoBrowser.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WZPhotoBrowser.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF0638A71D0978F800F8ECD1 /* LoadImageProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadImageProgressView.swift; sourceTree = "<group>"; };
 		CF0638A81D0978F800F8ECD1 /* PhotoCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCollectionCell.swift; sourceTree = "<group>"; };
 		CF0638A91D0978F800F8ECD1 /* PhotoTransitionDismissAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoTransitionDismissAnimation.swift; sourceTree = "<group>"; };
@@ -46,7 +36,6 @@
 		CF0638AD1D0978F800F8ECD1 /* WZPhotoBrowser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WZPhotoBrowser.swift; sourceTree = "<group>"; };
 		CF0638AF1D0978F800F8ECD1 /* ZoomImageScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZoomImageScrollView.swift; sourceTree = "<group>"; };
 		CF06952F1D503FD70031E670 /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
-		CF5749E31B96D0EF00FECAE3 /* WZPhotoBrowser-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WZPhotoBrowser-Bridging-Header.h"; sourceTree = "<group>"; };
 		CF5749E41B9714A200FECAE3 /* VisitedMeCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisitedMeCollectionViewCell.swift; sourceTree = "<group>"; };
 		CF5749E51B9714A200FECAE3 /* VisitedMeCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VisitedMeCollectionViewCell.xib; sourceTree = "<group>"; };
 		CF9B27AF1D2D03E30092BA1C /* WZPhotoCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WZPhotoCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
@@ -57,35 +46,6 @@
 		CFCA33FD1B95968E00B05827 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CFCA34001B95968E00B05827 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CFCA34021B95968E00B05827 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CFFF266A1BE0F4EC006E9575 /* NSData+ImageContentType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+ImageContentType.h"; sourceTree = "<group>"; };
-		CFFF266B1BE0F4EC006E9575 /* NSData+ImageContentType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+ImageContentType.m"; sourceTree = "<group>"; };
-		CFFF266C1BE0F4EC006E9575 /* SDImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDImageCache.h; sourceTree = "<group>"; };
-		CFFF266D1BE0F4EC006E9575 /* SDImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDImageCache.m; sourceTree = "<group>"; };
-		CFFF266E1BE0F4EC006E9575 /* SDWebImageCompat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDWebImageCompat.h; sourceTree = "<group>"; };
-		CFFF266F1BE0F4EC006E9575 /* SDWebImageCompat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDWebImageCompat.m; sourceTree = "<group>"; };
-		CFFF26701BE0F4EC006E9575 /* SDWebImageDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDWebImageDecoder.h; sourceTree = "<group>"; };
-		CFFF26711BE0F4EC006E9575 /* SDWebImageDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDWebImageDecoder.m; sourceTree = "<group>"; };
-		CFFF26721BE0F4EC006E9575 /* SDWebImageDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDWebImageDownloader.h; sourceTree = "<group>"; };
-		CFFF26731BE0F4EC006E9575 /* SDWebImageDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDWebImageDownloader.m; sourceTree = "<group>"; };
-		CFFF26741BE0F4EC006E9575 /* SDWebImageDownloaderOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDWebImageDownloaderOperation.h; sourceTree = "<group>"; };
-		CFFF26751BE0F4EC006E9575 /* SDWebImageDownloaderOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDWebImageDownloaderOperation.m; sourceTree = "<group>"; };
-		CFFF26761BE0F4EC006E9575 /* SDWebImageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDWebImageManager.h; sourceTree = "<group>"; };
-		CFFF26771BE0F4EC006E9575 /* SDWebImageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDWebImageManager.m; sourceTree = "<group>"; };
-		CFFF26781BE0F4EC006E9575 /* SDWebImageOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDWebImageOperation.h; sourceTree = "<group>"; };
-		CFFF26791BE0F4EC006E9575 /* SDWebImagePrefetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDWebImagePrefetcher.h; sourceTree = "<group>"; };
-		CFFF267A1BE0F4EC006E9575 /* SDWebImagePrefetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDWebImagePrefetcher.m; sourceTree = "<group>"; };
-		CFFF267B1BE0F4EC006E9575 /* UIButton+WebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+WebCache.h"; sourceTree = "<group>"; };
-		CFFF267C1BE0F4EC006E9575 /* UIButton+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+WebCache.m"; sourceTree = "<group>"; };
-		CFFF267D1BE0F4EC006E9575 /* UIImage+GIF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+GIF.h"; sourceTree = "<group>"; };
-		CFFF267E1BE0F4EC006E9575 /* UIImage+GIF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+GIF.m"; sourceTree = "<group>"; };
-		CFFF267F1BE0F4EC006E9575 /* UIImage+MultiFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+MultiFormat.h"; sourceTree = "<group>"; };
-		CFFF26801BE0F4EC006E9575 /* UIImage+MultiFormat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+MultiFormat.m"; sourceTree = "<group>"; };
-		CFFF26811BE0F4EC006E9575 /* UIImageView+HighlightedWebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+HighlightedWebCache.h"; sourceTree = "<group>"; };
-		CFFF26821BE0F4EC006E9575 /* UIImageView+HighlightedWebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+HighlightedWebCache.m"; sourceTree = "<group>"; };
-		CFFF26831BE0F4EC006E9575 /* UIImageView+WebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+WebCache.h"; sourceTree = "<group>"; };
-		CFFF26841BE0F4EC006E9575 /* UIImageView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+WebCache.m"; sourceTree = "<group>"; };
-		CFFF26851BE0F4EC006E9575 /* UIView+WebCacheOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WebCacheOperation.h"; sourceTree = "<group>"; };
-		CFFF26861BE0F4EC006E9575 /* UIView+WebCacheOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WebCacheOperation.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,12 +53,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11F4F9245159F1542F629163 /* Pods_WZPhotoBrowser.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4F28CBBA9028E2C7931CD31D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A5F713EC62D208DAF78F45C0 /* Pods_WZPhotoBrowser.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		CF0638A61D0978F800F8ECD1 /* WZPhotoBrowser */ = {
 			isa = PBXGroup;
 			children = (
@@ -116,9 +85,10 @@
 		CFCA33EA1B95968E00B05827 = {
 			isa = PBXGroup;
 			children = (
-				CFFF26691BE0F4EC006E9575 /* SDWebImage */,
 				CFCA33F51B95968E00B05827 /* WZPhotoBrowser */,
 				CFCA33F41B95968E00B05827 /* Products */,
+				FADEDC0885C27C22F25B9C04 /* Pods */,
+				4F28CBBA9028E2C7931CD31D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -140,7 +110,6 @@
 				CFCA33FD1B95968E00B05827 /* Assets.xcassets */,
 				CFCA33FF1B95968E00B05827 /* LaunchScreen.storyboard */,
 				CFCA34021B95968E00B05827 /* Info.plist */,
-				CF5749E31B96D0EF00FECAE3 /* WZPhotoBrowser-Bridging-Header.h */,
 				CF5749E41B9714A200FECAE3 /* VisitedMeCollectionViewCell.swift */,
 				CF5749E51B9714A200FECAE3 /* VisitedMeCollectionViewCell.xib */,
 				CF06952F1D503FD70031E670 /* UIColor+Extension.swift */,
@@ -148,41 +117,13 @@
 			path = WZPhotoBrowser;
 			sourceTree = "<group>";
 		};
-		CFFF26691BE0F4EC006E9575 /* SDWebImage */ = {
+		FADEDC0885C27C22F25B9C04 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				CFFF266A1BE0F4EC006E9575 /* NSData+ImageContentType.h */,
-				CFFF266B1BE0F4EC006E9575 /* NSData+ImageContentType.m */,
-				CFFF266C1BE0F4EC006E9575 /* SDImageCache.h */,
-				CFFF266D1BE0F4EC006E9575 /* SDImageCache.m */,
-				CFFF266E1BE0F4EC006E9575 /* SDWebImageCompat.h */,
-				CFFF266F1BE0F4EC006E9575 /* SDWebImageCompat.m */,
-				CFFF26701BE0F4EC006E9575 /* SDWebImageDecoder.h */,
-				CFFF26711BE0F4EC006E9575 /* SDWebImageDecoder.m */,
-				CFFF26721BE0F4EC006E9575 /* SDWebImageDownloader.h */,
-				CFFF26731BE0F4EC006E9575 /* SDWebImageDownloader.m */,
-				CFFF26741BE0F4EC006E9575 /* SDWebImageDownloaderOperation.h */,
-				CFFF26751BE0F4EC006E9575 /* SDWebImageDownloaderOperation.m */,
-				CFFF26761BE0F4EC006E9575 /* SDWebImageManager.h */,
-				CFFF26771BE0F4EC006E9575 /* SDWebImageManager.m */,
-				CFFF26781BE0F4EC006E9575 /* SDWebImageOperation.h */,
-				CFFF26791BE0F4EC006E9575 /* SDWebImagePrefetcher.h */,
-				CFFF267A1BE0F4EC006E9575 /* SDWebImagePrefetcher.m */,
-				CFFF267B1BE0F4EC006E9575 /* UIButton+WebCache.h */,
-				CFFF267C1BE0F4EC006E9575 /* UIButton+WebCache.m */,
-				CFFF267D1BE0F4EC006E9575 /* UIImage+GIF.h */,
-				CFFF267E1BE0F4EC006E9575 /* UIImage+GIF.m */,
-				CFFF267F1BE0F4EC006E9575 /* UIImage+MultiFormat.h */,
-				CFFF26801BE0F4EC006E9575 /* UIImage+MultiFormat.m */,
-				CFFF26811BE0F4EC006E9575 /* UIImageView+HighlightedWebCache.h */,
-				CFFF26821BE0F4EC006E9575 /* UIImageView+HighlightedWebCache.m */,
-				CFFF26831BE0F4EC006E9575 /* UIImageView+WebCache.h */,
-				CFFF26841BE0F4EC006E9575 /* UIImageView+WebCache.m */,
-				CFFF26851BE0F4EC006E9575 /* UIView+WebCacheOperation.h */,
-				CFFF26861BE0F4EC006E9575 /* UIView+WebCacheOperation.m */,
+				042833FBDC1A69C48C0CC189 /* Pods-WZPhotoBrowser.debug.xcconfig */,
+				40FE0F174664B664A817BE0B /* Pods-WZPhotoBrowser.release.xcconfig */,
 			);
-			name = SDWebImage;
-			path = WZPhotoBrowser/SDWebImage/SDWebImage;
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -192,9 +133,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CFCA34051B95968E00B05827 /* Build configuration list for PBXNativeTarget "WZPhotoBrowser" */;
 			buildPhases = (
+				3589F616B2DBDABF02872F70 /* [CP] Check Pods Manifest.lock */,
 				CFCA33EF1B95968E00B05827 /* Sources */,
 				CFCA33F01B95968E00B05827 /* Frameworks */,
 				CFCA33F11B95968E00B05827 /* Resources */,
+				15EBAA5E3F2FE62350BFE0E5 /* [CP] Embed Pods Frameworks */,
+				297E1C063F82C52403265177 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -218,6 +162,7 @@
 					CFCA33F21B95968E00B05827 = {
 						CreatedOnToolsVersion = 7.0;
 						DevelopmentTeam = 4RQRV7P524;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -253,35 +198,69 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		15EBAA5E3F2FE62350BFE0E5 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WZPhotoBrowser/Pods-WZPhotoBrowser-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		297E1C063F82C52403265177 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-WZPhotoBrowser/Pods-WZPhotoBrowser-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3589F616B2DBDABF02872F70 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		CFCA33EF1B95968E00B05827 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CFFF26931BE0F4EC006E9575 /* UIImageView+WebCache.m in Sources */,
-				CFFF268A1BE0F4EC006E9575 /* SDWebImageDecoder.m in Sources */,
-				CFFF268D1BE0F4EC006E9575 /* SDWebImageManager.m in Sources */,
-				CFFF26871BE0F4EC006E9575 /* NSData+ImageContentType.m in Sources */,
 				CF0638B31D0978F800F8ECD1 /* PhotoTransitionPresentAnimation.swift in Sources */,
-				CFFF26891BE0F4EC006E9575 /* SDWebImageCompat.m in Sources */,
-				CFFF26941BE0F4EC006E9575 /* UIView+WebCacheOperation.m in Sources */,
 				CFCA33F91B95968E00B05827 /* ViewController.swift in Sources */,
-				CFFF268F1BE0F4EC006E9575 /* UIButton+WebCache.m in Sources */,
 				CF0695301D503FD70031E670 /* UIColor+Extension.swift in Sources */,
-				CFFF268E1BE0F4EC006E9575 /* SDWebImagePrefetcher.m in Sources */,
 				CF0638B61D0978F800F8ECD1 /* WZPhotoBrowser.swift in Sources */,
 				CF0638B01D0978F800F8ECD1 /* LoadImageProgressView.swift in Sources */,
-				CFFF268C1BE0F4EC006E9575 /* SDWebImageDownloaderOperation.m in Sources */,
 				CF5749E61B9714A200FECAE3 /* VisitedMeCollectionViewCell.swift in Sources */,
-				CFFF26921BE0F4EC006E9575 /* UIImageView+HighlightedWebCache.m in Sources */,
 				CF0638B81D0978F800F8ECD1 /* ZoomImageScrollView.swift in Sources */,
-				CFFF26911BE0F4EC006E9575 /* UIImage+MultiFormat.m in Sources */,
 				CF9B27B01D2D03E30092BA1C /* WZPhotoCollectionViewFlowLayout.swift in Sources */,
 				CF0638B11D0978F800F8ECD1 /* PhotoCollectionCell.swift in Sources */,
-				CFFF26881BE0F4EC006E9575 /* SDImageCache.m in Sources */,
 				CFCA33F71B95968E00B05827 /* AppDelegate.swift in Sources */,
-				CFFF26901BE0F4EC006E9575 /* UIImage+GIF.m in Sources */,
-				CFFF268B1BE0F4EC006E9575 /* SDWebImageDownloader.m in Sources */,
 				CF0638B21D0978F800F8ECD1 /* PhotoTransitionDismissAnimation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -391,9 +370,9 @@
 		};
 		CFCA34061B95968E00B05827 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 042833FBDC1A69C48C0CC189 /* Pods-WZPhotoBrowser.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -403,17 +382,18 @@
 				PRODUCT_BUNDLE_IDENTIFIER = fyn.WZPhotoBrowser;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "WZPhotoBrowser/WZPhotoBrowser-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
 		CFCA34071B95968E00B05827 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 40FE0F174664B664A817BE0B /* Pods-WZPhotoBrowser.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -423,7 +403,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = fyn.WZPhotoBrowser;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "WZPhotoBrowser/WZPhotoBrowser-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

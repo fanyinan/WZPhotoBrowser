@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class VisitedMeCollectionViewCell: UICollectionViewCell {
   
@@ -15,11 +16,11 @@ class VisitedMeCollectionViewCell: UICollectionViewCell {
   override func awakeFromNib() {
     super.awakeFromNib()
     
-    avatarImageView.contentMode = UIViewContentMode.ScaleAspectFill
+    avatarImageView.contentMode = UIViewContentMode.scaleAspectFill
 
   }
   
-  func setData(imgUrl: String){
-    avatarImageView.sd_setImageWithURL(NSURL(string: imgUrl))
+  func setData(_ imgUrl: String){
+    avatarImageView.sd_setImage(with: URL(string: imgUrl))
   }
 }

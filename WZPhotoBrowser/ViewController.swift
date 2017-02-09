@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Foundation
+import SDWebImage
 
 class ViewController: UIViewController {
   
@@ -16,6 +16,10 @@ class ViewController: UIViewController {
   var slider: UISlider!
   var imageWidth: CGFloat!
   var imageStoreUrlList: [String] = [
+    "http://avatar.csdn.net/5/0/E/2_tangxiaoyin.jpg",
+    "http://www.qq1234.org/uploads/allimg/150709/8_150709172502_8.jpg",
+    "http://wenwen.soso.com/p/20100824/20100824165300-1042703649.jpg",
+    "http://www.feizl.com/upload2007/2014_06/1406251642203323.jpg",
     "http://image1.yuanfenba.net/uploads/oss/photo/201511/16/14361140059.jpg",
     "http://image1.yuanfenba.net/uploads/oss/photo/201511/19/17164875104.jpg",
     "http://image1.yuanfenba.net/uploads/oss/dynamic/201511/25/23171018488.jpg",
@@ -44,12 +48,12 @@ class ViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
         
-    navigationItem.rightBarButtonItem = UIBarButtonItem(title: "clear cache", style: .Plain, target: self, action: #selector(ViewController.onClearCache))
+    navigationItem.rightBarButtonItem = UIBarButtonItem(title: "clear cache", style: .plain, target: self, action: #selector(ViewController.onClearCache))
     
     imageUrlList = Array(imageStoreUrlList[0..<imageStoreUrlList.count])
     
     initView()
-    
+
   }
   
   override func didReceiveMemoryWarning() {
@@ -59,8 +63,8 @@ class ViewController: UIViewController {
   
   func onClearCache() {
     
-    SDImageCache.sharedImageCache().clearDisk()
-    SDImageCache.sharedImageCache().clearMemory()
+    SDImageCache.shared().clearMemory()
+    SDImageCache.shared().clearDisk(onCompletion: nil)
     
   }
   
@@ -68,29 +72,29 @@ class ViewController: UIViewController {
     
     title = "PhotoBrowser"
     
-    view.backgroundColor = UIColor.groupTableViewBackgroundColor()
+    view.backgroundColor = UIColor.groupTableViewBackground
     
     let layout = UICollectionViewFlowLayout()
     collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: layout)
-    collectionView.backgroundColor = UIColor.blackColor()
-    collectionView.registerNib(UINib(nibName: identifierCell, bundle: nil), forCellWithReuseIdentifier: identifierCell)
+    collectionView.backgroundColor = UIColor.black
+    collectionView.register(UINib(nibName: identifierCell, bundle: nil), forCellWithReuseIdentifier: identifierCell)
     collectionView.dataSource = self
     collectionView.delegate = self
-    collectionView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+    collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     
     slider = UISlider(frame: CGRect(x: 10, y: 500, width: view.frame.width - 20, height: 10))
-    slider.addTarget(self, action: #selector(ViewController.changeImageCount(_:)), forControlEvents: .ValueChanged)
+    slider.addTarget(self, action: #selector(ViewController.changeImageCount(_:)), for: .valueChanged)
     slider.value = Float(imageUrlList.count) / Float(imageStoreUrlList.count)
-    slider.autoresizingMask = [.FlexibleWidth,.FlexibleTopMargin]
+    slider.autoresizingMask = [.flexibleWidth,.flexibleTopMargin]
     
     view.addSubview(collectionView)
     view.addSubview(slider)
 
-    UIApplication.sharedApplication().setStatusBarHidden(true, withAnimation: .None)
+    UIApplication.shared.setStatusBarHidden(true, with: .none)
 
   }
   
-  func changeImageCount(sender: UISlider) {
+  func changeImageCount(_ sender: UISlider) {
     let imageCount = Int(sender.value * Float(imageStoreUrlList.count))
     
     imageUrlList = Array(imageStoreUrlList[0..<imageCount])
@@ -100,29 +104,30 @@ class ViewController: UIViewController {
   
   func showPhotoBrowser() {
     let photoBrowser = WZPhotoBrowser(delegate: self){ [weak self] in
-      self?.dismissViewControllerAnimated(true, completion: nil)
+      self?.dismiss(animated: true, completion: nil)
     }
     photoBrowser.isAnimate = true
+    photoBrowser.doubleTapMagnify = true
     photoBrowser.transitioningDelegate = self
-    presentViewController(photoBrowser, animated: true, completion: nil)
+    present(photoBrowser, animated: true, completion: nil)
   }
 
 }
 
 extension ViewController: WZPhotoBrowserDelegate {
   
-  func numberOfImage(photoBrowser: WZPhotoBrowser) -> Int {
+  func numberOfImage(_ photoBrowser: WZPhotoBrowser) -> Int {
     return imageUrlList.count
   }
-  func displayWebImageWithIndex(photoBrowser: WZPhotoBrowser, index: Int) -> String {
+  func displayWebImageWithIndex(_ photoBrowser: WZPhotoBrowser, index: Int) -> String {
     return imageUrlList[index]
   }
   
-  func firstDisplayIndex(photoBrowser: WZPhotoBrowser) -> Int {
+  func firstDisplayIndex(_ photoBrowser: WZPhotoBrowser) -> Int {
     return selectImageIndex
   }
   
-  func placeHolderImageWithIndex(photoBrowser: WZPhotoBrowser, index: Int) -> UIImage? {
+  func placeHolderImageWithIndex(_ photoBrowser: WZPhotoBrowser, index: Int) -> UIImage? {
     return thumbnailImageDic[imageUrlList[index]]
   }
   
@@ -130,24 +135,24 @@ extension ViewController: WZPhotoBrowserDelegate {
 
 extension ViewController: UICollectionViewDataSource {
   
-  func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     return imageUrlList.count
   }
   
-  func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+  func numberOfSections(in collectionView: UICollectionView) -> Int {
     return 1
   }
   
   
-  func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     
-    let cell = collectionView.dequeueReusableCellWithReuseIdentifier(identifierCell, forIndexPath: indexPath) as! VisitedMeCollectionViewCell
+    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifierCell, for: indexPath) as! VisitedMeCollectionViewCell
     
-    cell.avatarImageView.sd_setImageWithURL(NSURL(string: imageUrlList[indexPath.row])) { (image, ErrorType, type, url) -> Void in
+    cell.avatarImageView.sd_setImage(with: URL(string: imageUrlList[indexPath.row]), placeholderImage: nil, options: [], completed: { (image, ErrorType, type, url) -> Void in
       
-      self.thumbnailImageDic[self.imageUrlList[indexPath.row]] = image ?? UIImage(named: url.absoluteString)
-
-    }
+      self.thumbnailImageDic[self.imageUrlList[indexPath.row]] = image ?? UIImage(named: url!.absoluteString)
+        
+    })
 
     return cell
   }
@@ -156,7 +161,7 @@ extension ViewController: UICollectionViewDataSource {
 
 extension ViewController: UICollectionViewDelegateFlowLayout {
   
-  func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
     
     var width: CGFloat = 0
     width = (view.frame.width - CGFloat(numOfCol - 1) * hSpace) / CGFloat(numOfCol)
@@ -167,18 +172,18 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
     return size
   }
   
-  func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
     return vSpace
   }
   
-  func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
     return 0
   }
   
 }
 
 extension ViewController: UICollectionViewDelegate {
-  func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     selectImageIndex = indexPath.row
     showPhotoBrowser()
   }
@@ -188,12 +193,12 @@ extension ViewController: UICollectionViewDelegate {
 
 extension ViewController: UIViewControllerTransitioningDelegate {
   
-  func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+  func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
     
     return PhotoTransitionPresentAnimation(showVC: self)
   }
 
-  func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning?{
+  func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning?{
     return PhotoTransitionDismissAnimation(showVC: self)
   }
 
@@ -201,11 +206,11 @@ extension ViewController: UIViewControllerTransitioningDelegate {
 
 extension ViewController: WZPhotoBrowserAnimatedTransitionDataSource {
   
-  func getImageViewFrameInScreenWith(index: Int?) -> CGRect? {
+  func getImageViewFrameInScreenWith(_ index: Int?) -> CGRect? {
     
-    if let imageItem = collectionView.cellForItemAtIndexPath(NSIndexPath(forRow: index ?? selectImageIndex, inSection: 0)) {
+    if let imageItem = collectionView.cellForItem(at: IndexPath(row: index ?? selectImageIndex, section: 0)) {
       
-      let imagePositionInView = collectionView.convertRect(imageItem.frame, toView: nil)
+      let imagePositionInView = collectionView.convert(imageItem.frame, to: nil)
       
       return imagePositionInView
     }

@@ -17,36 +17,36 @@ class PhotoTransitionDismissAnimation: NSObject, UIViewControllerAnimatedTransit
     super.init()
   }
   
-  func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
+  func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
     return 0.3
   }
   
-  func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
+  func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
     
-    guard let fromVC = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey) as? WZPhotoBrowser else {
+    guard let fromVC = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from) as? WZPhotoBrowser else {
       return }
-    guard let  toVC = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey) else { return }
-    guard let containerView = transitionContext.containerView() else { return }
+    guard let  toVC = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to) else { return }
+    let containerView = transitionContext.containerView
     guard let _showVC = showVC else { return }
     
     containerView.addSubview(toVC.view)
-    containerView.sendSubviewToBack(toVC.view)
-    containerView.backgroundColor = UIColor.clearColor()
+    containerView.sendSubview(toBack: toVC.view)
+    containerView.backgroundColor = UIColor.clear
     
     let fromView = fromVC.view
-    fromView.alpha = 1
+    fromView?.alpha = 1
     fromVC.setMainTableViewHiddenForAnimation(true)
     
     //初始化负责动画的ImageView
     let imageSizeInFromVC = fromVC.getCurrentDisplayImageRect()
     let imageViewForAnimation = UIImageView(frame: imageSizeInFromVC)
     containerView.addSubview(imageViewForAnimation)
-    imageViewForAnimation.contentMode = .ScaleAspectFill
+    imageViewForAnimation.contentMode = .scaleAspectFill
     imageViewForAnimation.clipsToBounds = true
     imageViewForAnimation.image = fromVC.getCurrentDisplayImage()
     
     
-    var finalFrame = CGRectZero
+    var finalFrame = CGRect.zero
     var isHaveTargetFrame: Bool!
     
     //如果没有获得最终的位置，则已fade的形式消失
@@ -69,9 +69,9 @@ class PhotoTransitionDismissAnimation: NSObject, UIViewControllerAnimatedTransit
     
     (self.showVC as? WZPhotoBrowserAnimatedTransitionDelegate)?.animatedTransitionBeginDismissViewController?(imageViewForAnimation)
     
-    UIView.animateWithDuration(transitionDuration(transitionContext), animations: { () -> Void in
+    UIView.animate(withDuration: transitionDuration(using: transitionContext), animations: { () -> Void in
       
-      fromView.alpha = 0
+      fromView?.alpha = 0
       imageViewForAnimation.frame = finalFrame
       
       if !isHaveTargetFrame {
@@ -81,14 +81,14 @@ class PhotoTransitionDismissAnimation: NSObject, UIViewControllerAnimatedTransit
       //I know it is like a shit, but it's cool
       ((self.showVC as? WZPhotoBrowserAnimatedTransitionDelegate)?.animateBlockWhenDismissingViewController?(imageViewForAnimation))?()
       
-    }) { _ in
-      
-      imageViewForAnimation.removeFromSuperview()
-      transitionContext.completeTransition(true)
-      
-      (self.showVC as? WZPhotoBrowserAnimatedTransitionDelegate)?.animatedTransitionEndDismissViewController?(imageViewForAnimation)
-      
-    }
+      }, completion: { _ in
+        
+        imageViewForAnimation.removeFromSuperview()
+        transitionContext.completeTransition(true)
+        
+        (self.showVC as? WZPhotoBrowserAnimatedTransitionDelegate)?.animatedTransitionEndDismissViewController?(imageViewForAnimation)
+        
+    }) 
     
   }
   

@@ -14,9 +14,9 @@ class LoadImageProgressView: UIView {
   var progress: CGFloat = 0 {
     didSet{
       if progress >= 1.0 {
-        hidden = true
+        isHidden = true
       } else {
-        hidden = false
+        isHidden = false
         setNeedsDisplay()
       }
     }
@@ -26,26 +26,26 @@ class LoadImageProgressView: UIView {
   override init(frame: CGRect) {
     super.init(frame: frame)
     
-    initView()
+    setupUI()
     setBlackStyle()
   }
   
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
     
-    initView()
+    setupUI()
     
   }
   
-  func initView() {
+  func setupUI() {
     layer.cornerRadius = 5
     clipsToBounds = true
-    backgroundColor = UIColor.clearColor()
+    backgroundColor = UIColor.clear
   }
   
   func dismiss() {
     progress = 1.0
-    hidden = true
+    isHidden = true
   }
   
   func setWhiteStyle() {
@@ -58,7 +58,7 @@ class LoadImageProgressView: UIView {
     setNeedsDisplay()
   }
   
-  override func drawRect(rect: CGRect) {
+  override func draw(_ rect: CGRect) {
     let ctx = UIGraphicsGetCurrentContext()!
     
     let xCenter = rect.size.width / 2
@@ -69,19 +69,18 @@ class LoadImageProgressView: UIView {
     let lineWidth = rect.size.width / 2
     
     color.set()
-    CGContextSetLineWidth(ctx, lineWidth)
-    CGContextAddArc(ctx, xCenter, yCenter, radius + lineWidth / 2 + 5, CGFloat(0), CGFloat(M_PI * 2), Int32(1))
-    
-    CGContextStrokePath(ctx)
+    ctx.setLineWidth(lineWidth)
+    ctx.addArc(center: CGPoint(x: xCenter, y: yCenter), radius: radius + lineWidth / 2 + 5, startAngle: CGFloat(0), endAngle: CGFloat(M_PI * 2), clockwise: true)
+    ctx.strokePath()
     
     color.set()
-    CGContextSetLineWidth(ctx, 1)
-    CGContextMoveToPoint(ctx, xCenter, yCenter)
+    ctx.setLineWidth(1)
+    ctx.move(to: CGPoint(x: xCenter, y: yCenter))
     
     let from = -CGFloat(M_PI) / 2 + progress * CGFloat(M_PI) * CGFloat(2)
-    CGContextAddArc(ctx, xCenter, yCenter, radius, from, CGFloat(M_PI / 2 * 3), Int32(0))
-    CGContextClosePath(ctx)
-    CGContextFillPath(ctx)
+    ctx.addArc(center: CGPoint(x: xCenter, y: yCenter), radius: radius, startAngle: from, endAngle: CGFloat(M_PI / 2 * 3), clockwise: false)
+    ctx.closePath()
+    ctx.fillPath()
   }
   
   

@@ -21,16 +21,16 @@ class PhotoCollectionCell: UICollectionViewCell {
     super.init(frame: frame)
     
     zoomImageScrollView = ZoomImageScrollView()
-    zoomImageScrollView.autoresizingMask = [.FlexibleHeight, .FlexibleWidth]
+    zoomImageScrollView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
     contentView.addSubview(zoomImageScrollView)
     
   }
   
-  func setImageUrl(imageUrl: String, placeholderImage: UIImage? = nil, loadNow: Bool = true) {
+  func setImageUrl(_ imageUrl: String, placeholderImage: UIImage? = nil, loadNow: Bool = true) {
     zoomImageScrollView.setImageUrl(imageUrl, placeholderImage: placeholderImage, loadNow: loadNow)
   }
   
-  func setLocalImage(image: UIImage) {
+  func setLocalImage(_ image: UIImage) {
     zoomImageScrollView.setLocalImage(image)
   }
   
