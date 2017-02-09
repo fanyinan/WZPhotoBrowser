@@ -1,0 +1,6 @@
+framework module Pods_WZPhotoBrowserDemo {
+  umbrella header "Pods-WZPhotoBrowserDemo-umbrella.h"
+
+  export *
+  module * { export * }
+}
