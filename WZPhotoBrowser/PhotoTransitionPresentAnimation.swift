@@ -8,20 +8,20 @@
 
 import UIKit
 
-class PhotoTransitionPresentAnimation: NSObject, UIViewControllerAnimatedTransitioning {
+public class PhotoTransitionPresentAnimation: NSObject, UIViewControllerAnimatedTransitioning {
   
   weak var showVC: WZPhotoBrowserAnimatedTransitionDataSource?
   
-  init(showVC: WZPhotoBrowserAnimatedTransitionDataSource) {
+  public init(showVC: WZPhotoBrowserAnimatedTransitionDataSource) {
     self.showVC = showVC
     super.init()
   }
   
-  func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
+  public func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
     return 0.3
   }
   
-  func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+  public func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
     
     guard let toVC = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to) as? WZPhotoBrowser else { return }
     guard let _showVC = showVC else { return }

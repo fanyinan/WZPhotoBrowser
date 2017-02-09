@@ -9,7 +9,7 @@
 import UIKit
 import SDWebImage
 
-protocol WZPhotoBrowserAnimatedTransitionDataSource: NSObjectProtocol {
+public protocol WZPhotoBrowserAnimatedTransitionDataSource: NSObjectProtocol {
   
   //如果index为nil则返回当前点击的即将跳转图片浏器的图片的frame
   func getImageViewFrameInScreenWith(_ index: Int?) -> CGRect?
@@ -34,7 +34,7 @@ protocol WZPhotoBrowserAnimatedTransitionDataSource: NSObjectProtocol {
   
 }
 
-@objc protocol WZPhotoBrowserDelegate: NSObjectProtocol {
+@objc public protocol WZPhotoBrowserDelegate: NSObjectProtocol {
   
   //图片总数
   func numberOfImage(_ photoBrowser: WZPhotoBrowser) -> Int
@@ -49,7 +49,7 @@ protocol WZPhotoBrowserAnimatedTransitionDataSource: NSObjectProtocol {
   
 }
 
-class WZPhotoBrowser: UIViewController {
+open class WZPhotoBrowser: UIViewController {
   
   fileprivate var mainCollectionView: UICollectionView!
   fileprivate var prepareShowCell: PhotoCollectionCell!
@@ -61,7 +61,7 @@ class WZPhotoBrowser: UIViewController {
       photoDidChange()
     }
   }
-  var isAnimate = false //用于设置是否经过动画跳转来 ，由PhotoTransitionPushAnimation设置
+  public var isAnimate = false //用于设置是否经过动画跳转来 ，由PhotoTransitionPushAnimation设置
   var isDidShow = false //用于标记次VC是否已经呈现
   var isHideStatusBar = false
   var doubleTapMagnify = false
@@ -69,29 +69,25 @@ class WZPhotoBrowser: UIViewController {
   let IDENTIFIER_IMAGE_CELL = "ZoomImageCell"
   let padding: CGFloat = 6
   
-  init(delegate: WZPhotoBrowserDelegate, quitBlock: (() -> Void)? = nil) {
+  public init(delegate: WZPhotoBrowserDelegate, quitBlock: (() -> Void)? = nil) {
     
     self.delegate = delegate
     self.quitBlock = quitBlock
     super.init(nibName: nil, bundle: nil)
   }
-  
-  deinit {
-    print("WZPhotoBrowser deinit")
-  }
-  
-  required init?(coder aDecoder: NSCoder) {
+
+  required public init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
   
-  override func viewDidLoad() {
+  override open func viewDidLoad() {
     super.viewDidLoad()
     
     setupUI()
     
   }
   
-  override func viewWillAppear(_ animated: Bool) {
+  override open func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     
     moveToPhoto(with: delegate?.firstDisplayIndex?(self) ?? 0)
@@ -111,28 +107,28 @@ class WZPhotoBrowser: UIViewController {
     }
   }
   
-  override func viewDidAppear(_ animated: Bool) {
+  override open func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
     
     isHideStatusBar = true
     setNeedsStatusBarAppearanceUpdate()
   }
   
-  override func viewWillLayoutSubviews() {
+  override open func viewWillLayoutSubviews() {
     prepareShowCell = mainCollectionView.cellForItem(at: IndexPath(item: currentIndex, section: 0)) as? PhotoCollectionCell
   }
   
-  override func viewWillDisappear(_ animated: Bool) {
+  override open func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
     hideNavigationBar()
   }
   
-  override func didReceiveMemoryWarning() {
+  override open func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
   }
   
-  override var prefersStatusBarHidden : Bool {
+  override open var prefersStatusBarHidden : Bool {
     return isHideStatusBar
   }
   
@@ -262,11 +258,11 @@ class WZPhotoBrowser: UIViewController {
 
 extension WZPhotoBrowser: UICollectionViewDataSource {
   
-  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+  public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     return delegate?.numberOfImage(self) ?? 0
   }
   
-  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+  public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCollectionCell", for: indexPath) as! PhotoCollectionCell
     
@@ -296,7 +292,7 @@ extension WZPhotoBrowser: UICollectionViewDataSource {
 
 extension WZPhotoBrowser: UICollectionViewDelegateFlowLayout {
   
-  func scrollViewDidScroll(_ scrollView: UIScrollView) {
+  public func scrollViewDidScroll(_ scrollView: UIScrollView) {
     
     //更新currentIndex
     let cellPoint = view.convert(mainCollectionView.center, to: mainCollectionView)

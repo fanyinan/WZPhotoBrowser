@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		26D65797978141659C172801 /* Pods_WZPhotoBrowserDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B7CA7D4D40DB9B4D08DC458 /* Pods_WZPhotoBrowserDemo.framework */; };
+		CF34DE031E4C4C9200F21C49 /* LoadImageProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF34DDFD1E4C4C9200F21C49 /* LoadImageProgressView.swift */; };
+		CF34DE041E4C4C9200F21C49 /* PhotoCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF34DDFE1E4C4C9200F21C49 /* PhotoCollectionCell.swift */; };
+		CF34DE051E4C4C9200F21C49 /* PhotoTransitionDismissAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF34DDFF1E4C4C9200F21C49 /* PhotoTransitionDismissAnimation.swift */; };
+		CF34DE061E4C4C9200F21C49 /* PhotoTransitionPresentAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF34DE001E4C4C9200F21C49 /* PhotoTransitionPresentAnimation.swift */; };
+		CF34DE071E4C4C9200F21C49 /* WZPhotoBrowser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF34DE011E4C4C9200F21C49 /* WZPhotoBrowser.swift */; };
+		CF34DE081E4C4C9200F21C49 /* ZoomImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF34DE021E4C4C9200F21C49 /* ZoomImageScrollView.swift */; };
 		CF3E907D1E4C2FF50086D5CB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF3E907C1E4C2FF50086D5CB /* AppDelegate.swift */; };
 		CF3E907F1E4C2FF50086D5CB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF3E907E1E4C2FF50086D5CB /* ViewController.swift */; };
 		CF3E90821E4C2FF50086D5CB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CF3E90801E4C2FF50086D5CB /* Main.storyboard */; };
@@ -16,18 +22,18 @@
 		CF3E90911E4C30630086D5CB /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF3E908E1E4C30630086D5CB /* UIColor+Extension.swift */; };
 		CF3E90921E4C30630086D5CB /* ThumbCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF3E908F1E4C30630086D5CB /* ThumbCell.swift */; };
 		CF3E90931E4C30630086D5CB /* ThumbCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF3E90901E4C30630086D5CB /* ThumbCell.xib */; };
-		CF3E909B1E4C30690086D5CB /* LoadImageProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF3E90951E4C30690086D5CB /* LoadImageProgressView.swift */; };
-		CF3E909C1E4C30690086D5CB /* PhotoCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF3E90961E4C30690086D5CB /* PhotoCollectionCell.swift */; };
-		CF3E909D1E4C30690086D5CB /* PhotoTransitionDismissAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF3E90971E4C30690086D5CB /* PhotoTransitionDismissAnimation.swift */; };
-		CF3E909E1E4C30690086D5CB /* PhotoTransitionPresentAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF3E90981E4C30690086D5CB /* PhotoTransitionPresentAnimation.swift */; };
-		CF3E909F1E4C30690086D5CB /* WZPhotoBrowser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF3E90991E4C30690086D5CB /* WZPhotoBrowser.swift */; };
-		CF3E90A01E4C30690086D5CB /* ZoomImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF3E909A1E4C30690086D5CB /* ZoomImageScrollView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		04129D6933CF7F9A33DDEEE0 /* Pods-WZPhotoBrowserDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WZPhotoBrowserDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-WZPhotoBrowserDemo/Pods-WZPhotoBrowserDemo.release.xcconfig"; sourceTree = "<group>"; };
 		140D0DF061C015281CEDC61E /* Pods-WZPhotoBrowserDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WZPhotoBrowserDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WZPhotoBrowserDemo/Pods-WZPhotoBrowserDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		1B7CA7D4D40DB9B4D08DC458 /* Pods_WZPhotoBrowserDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WZPhotoBrowserDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CF34DDFD1E4C4C9200F21C49 /* LoadImageProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadImageProgressView.swift; sourceTree = "<group>"; };
+		CF34DDFE1E4C4C9200F21C49 /* PhotoCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCollectionCell.swift; sourceTree = "<group>"; };
+		CF34DDFF1E4C4C9200F21C49 /* PhotoTransitionDismissAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoTransitionDismissAnimation.swift; sourceTree = "<group>"; };
+		CF34DE001E4C4C9200F21C49 /* PhotoTransitionPresentAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoTransitionPresentAnimation.swift; sourceTree = "<group>"; };
+		CF34DE011E4C4C9200F21C49 /* WZPhotoBrowser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WZPhotoBrowser.swift; sourceTree = "<group>"; };
+		CF34DE021E4C4C9200F21C49 /* ZoomImageScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZoomImageScrollView.swift; sourceTree = "<group>"; };
 		CF3E90791E4C2FF50086D5CB /* WZPhotoBrowserDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WZPhotoBrowserDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF3E907C1E4C2FF50086D5CB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CF3E907E1E4C2FF50086D5CB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -38,12 +44,6 @@
 		CF3E908E1E4C30630086D5CB /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		CF3E908F1E4C30630086D5CB /* ThumbCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThumbCell.swift; sourceTree = "<group>"; };
 		CF3E90901E4C30630086D5CB /* ThumbCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThumbCell.xib; sourceTree = "<group>"; };
-		CF3E90951E4C30690086D5CB /* LoadImageProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadImageProgressView.swift; sourceTree = "<group>"; };
-		CF3E90961E4C30690086D5CB /* PhotoCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCollectionCell.swift; sourceTree = "<group>"; };
-		CF3E90971E4C30690086D5CB /* PhotoTransitionDismissAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoTransitionDismissAnimation.swift; sourceTree = "<group>"; };
-		CF3E90981E4C30690086D5CB /* PhotoTransitionPresentAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoTransitionPresentAnimation.swift; sourceTree = "<group>"; };
-		CF3E90991E4C30690086D5CB /* WZPhotoBrowser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WZPhotoBrowser.swift; sourceTree = "<group>"; };
-		CF3E909A1E4C30690086D5CB /* ZoomImageScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZoomImageScrollView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +75,20 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		CF34DDFC1E4C4C9200F21C49 /* WZPhotoBrowser */ = {
+			isa = PBXGroup;
+			children = (
+				CF34DDFD1E4C4C9200F21C49 /* LoadImageProgressView.swift */,
+				CF34DDFE1E4C4C9200F21C49 /* PhotoCollectionCell.swift */,
+				CF34DDFF1E4C4C9200F21C49 /* PhotoTransitionDismissAnimation.swift */,
+				CF34DE001E4C4C9200F21C49 /* PhotoTransitionPresentAnimation.swift */,
+				CF34DE011E4C4C9200F21C49 /* WZPhotoBrowser.swift */,
+				CF34DE021E4C4C9200F21C49 /* ZoomImageScrollView.swift */,
+			);
+			name = WZPhotoBrowser;
+			path = ../../WZPhotoBrowser;
+			sourceTree = "<group>";
+		};
 		CF3E90701E4C2FF50086D5CB = {
 			isa = PBXGroup;
 			children = (
@@ -96,7 +110,7 @@
 		CF3E907B1E4C2FF50086D5CB /* WZPhotoBrowserDemo */ = {
 			isa = PBXGroup;
 			children = (
-				CF3E90941E4C30690086D5CB /* WZPhotoBrowser */,
+				CF34DDFC1E4C4C9200F21C49 /* WZPhotoBrowser */,
 				CF3E908E1E4C30630086D5CB /* UIColor+Extension.swift */,
 				CF3E908F1E4C30630086D5CB /* ThumbCell.swift */,
 				CF3E90901E4C30630086D5CB /* ThumbCell.xib */,
@@ -108,19 +122,6 @@
 				CF3E90881E4C2FF50086D5CB /* Info.plist */,
 			);
 			path = WZPhotoBrowserDemo;
-			sourceTree = "<group>";
-		};
-		CF3E90941E4C30690086D5CB /* WZPhotoBrowser */ = {
-			isa = PBXGroup;
-			children = (
-				CF3E90951E4C30690086D5CB /* LoadImageProgressView.swift */,
-				CF3E90961E4C30690086D5CB /* PhotoCollectionCell.swift */,
-				CF3E90971E4C30690086D5CB /* PhotoTransitionDismissAnimation.swift */,
-				CF3E90981E4C30690086D5CB /* PhotoTransitionPresentAnimation.swift */,
-				CF3E90991E4C30690086D5CB /* WZPhotoBrowser.swift */,
-				CF3E909A1E4C30690086D5CB /* ZoomImageScrollView.swift */,
-			);
-			path = WZPhotoBrowser;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -248,16 +249,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CF3E90A01E4C30690086D5CB /* ZoomImageScrollView.swift in Sources */,
-				CF3E909D1E4C30690086D5CB /* PhotoTransitionDismissAnimation.swift in Sources */,
-				CF3E909C1E4C30690086D5CB /* PhotoCollectionCell.swift in Sources */,
+				CF34DE081E4C4C9200F21C49 /* ZoomImageScrollView.swift in Sources */,
+				CF34DE051E4C4C9200F21C49 /* PhotoTransitionDismissAnimation.swift in Sources */,
+				CF34DE041E4C4C9200F21C49 /* PhotoCollectionCell.swift in Sources */,
 				CF3E90911E4C30630086D5CB /* UIColor+Extension.swift in Sources */,
 				CF3E907F1E4C2FF50086D5CB /* ViewController.swift in Sources */,
 				CF3E907D1E4C2FF50086D5CB /* AppDelegate.swift in Sources */,
 				CF3E90921E4C30630086D5CB /* ThumbCell.swift in Sources */,
-				CF3E909E1E4C30690086D5CB /* PhotoTransitionPresentAnimation.swift in Sources */,
-				CF3E909B1E4C30690086D5CB /* LoadImageProgressView.swift in Sources */,
-				CF3E909F1E4C30690086D5CB /* WZPhotoBrowser.swift in Sources */,
+				CF34DE061E4C4C9200F21C49 /* PhotoTransitionPresentAnimation.swift in Sources */,
+				CF34DE031E4C4C9200F21C49 /* LoadImageProgressView.swift in Sources */,
+				CF34DE071E4C4C9200F21C49 /* WZPhotoBrowser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

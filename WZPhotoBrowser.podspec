@@ -16,9 +16,8 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "WZPhotoBrowser"
-  s.version      = "0.0.2"
+  s.version      = "0.0.3"
   s.summary      = "Just A photoBrowser."
-
   # This description is used to generate tags and improve search results.
   #   * Think: What does it do? Why did you write it? What is the focus?
   #   * Try to keep it short, snappy and to the point.
@@ -32,7 +31,6 @@ Pod::Spec.new do |s|
   s.homepage     = "https://github.com/fanyinan/WZPhotoBrowser"
   # s.screenshots  = "www.example.com/screenshots_1.gif", "www.example.com/screenshots_2.gif"
 
-a
   # ―――  Spec License  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   #
   #  Licensing your code is important. See http://choosealicense.com for more info.
@@ -81,7 +79,7 @@ a
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source = { :git => "/Users/fanyinan/Documents/MyProject/WZPhotoBrowser", :tag => '0.0.2' }
+  s.source = { :git => "/Users/fanyinan/Documents/MyProject/WZPhotoBrowser", :tag => '0.0.3' }
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   #
