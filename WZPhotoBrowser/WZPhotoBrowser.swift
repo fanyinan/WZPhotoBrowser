@@ -18,7 +18,7 @@ public protocol WZPhotoBrowserAnimatedTransitionDataSource: NSObjectProtocol {
   
 }
 
-@objc protocol WZPhotoBrowserAnimatedTransitionDelegate: NSObjectProtocol {
+@objc public protocol WZPhotoBrowserAnimatedTransitionDelegate: NSObjectProtocol {
   
   @objc optional func animatedTransitionBeginPresentViewController(_ animatedImageView: UIImageView)
   
