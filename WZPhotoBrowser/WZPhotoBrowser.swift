@@ -54,10 +54,10 @@ open class WZPhotoBrowser: UIViewController {
   fileprivate var mainCollectionView: UICollectionView!
   private var prepareShowCell: PhotoCollectionCell!
   
-  fileprivate weak var delegate: WZPhotoBrowserDelegate?
   fileprivate var isDidShow = false //用于标记次VC是否已经呈现
   private var isHideStatusBar = false
   
+  public weak var delegate: WZPhotoBrowserDelegate?
   public var isAnimate = false //用于设置是否经过动画跳转来 ，由PhotoTransitionPushAnimation设置
   public var doubleTapMagnify = false
   public var quitBlock: (() -> Void)?
@@ -70,7 +70,7 @@ open class WZPhotoBrowser: UIViewController {
   let IDENTIFIER_IMAGE_CELL = "ZoomImageCell"
   let padding: CGFloat = 6
   
-  public init(delegate: WZPhotoBrowserDelegate, quitBlock: (() -> Void)? = nil) {
+  public init(delegate: WZPhotoBrowserDelegate?, quitBlock: (() -> Void)? = nil) {
     
     self.delegate = delegate
     self.quitBlock = quitBlock
