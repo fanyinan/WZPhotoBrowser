@@ -70,15 +70,15 @@ class LoadImageProgressView: UIView {
     
     color.set()
     ctx.setLineWidth(lineWidth)
-    ctx.addArc(center: CGPoint(x: xCenter, y: yCenter), radius: radius + lineWidth / 2 + 5, startAngle: CGFloat(0), endAngle: CGFloat(M_PI * 2), clockwise: true)
+    ctx.addArc(center: CGPoint(x: xCenter, y: yCenter), radius: radius + lineWidth / 2 + 5, startAngle: CGFloat(0), endAngle: CGFloat(Double.pi * 2), clockwise: true)
     ctx.strokePath()
     
     color.set()
     ctx.setLineWidth(1)
     ctx.move(to: CGPoint(x: xCenter, y: yCenter))
     
-    let from = -CGFloat(M_PI) / 2 + progress * CGFloat(M_PI) * CGFloat(2)
-    ctx.addArc(center: CGPoint(x: xCenter, y: yCenter), radius: radius, startAngle: from, endAngle: CGFloat(M_PI / 2 * 3), clockwise: false)
+    let from = -CGFloat(Double.pi) / 2 + progress * CGFloat(Double.pi) * CGFloat(2)
+    ctx.addArc(center: CGPoint(x: xCenter, y: yCenter), radius: radius, startAngle: from, endAngle: CGFloat(Double.pi / 2 * 3), clockwise: false)
     ctx.closePath()
     ctx.fillPath()
   }
