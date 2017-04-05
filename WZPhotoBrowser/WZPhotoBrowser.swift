@@ -293,7 +293,7 @@ extension WZPhotoBrowser: UICollectionViewDataSource {
 
 extension WZPhotoBrowser: UICollectionViewDelegateFlowLayout {
   
-  public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+  open func scrollViewDidScroll(_ scrollView: UIScrollView) {
     
     //更新currentIndex
     let cellPoint = view.convert(mainCollectionView.center, to: mainCollectionView)
