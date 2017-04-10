@@ -4,6 +4,7 @@ use_frameworks!
 
 target 'WZPhotoBrowserDemo' do
 	pod 'SDWebImage'
+  pod 'FLAnimatedImage'
 end
 
 post_install do |installer|

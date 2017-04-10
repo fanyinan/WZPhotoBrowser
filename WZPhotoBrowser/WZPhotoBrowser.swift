@@ -235,7 +235,7 @@ open class WZPhotoBrowser: UIViewController {
         
       } else {
         
-        cell?.zoomImageScrollView.setImageUrl(delegate?.displayWebImageWithIndex?(self, index: currentIndex) ?? "", placeholderImage: delegate?.placeHolderImageWithIndex?(self, index: currentIndex), loadNow: true)
+        cell?.zoomImageScrollView.setImage(with: delegate?.displayWebImageWithIndex?(self, index: currentIndex) ?? "", placeholderImage: delegate?.placeHolderImageWithIndex?(self, index: currentIndex), loadNow: true)
         
       }
     }

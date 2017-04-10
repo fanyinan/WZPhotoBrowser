@@ -34,7 +34,8 @@ class ViewController: UIViewController {
     "http://r.photo.store.qq.com/psb?/V13LH3PA3wo6Vo/PjU9yTKcQiEa.fZdWv2uebIToQkVqs0yaXy3mNUTCFw%21/o/dJYjcpSwGAAA&bo=wwOAAkAGJwQBAAA%21",
     "http://img5.aili.com/201404/25/1398406512_51645900.jpg",
     "http://images.ccoo.cn/bbs/2010818/201081814532688.jpg",
-    "http://www.beihaiting.com/uploads/allimg/140919/10723-140919213430591.jpg"
+    "http://www.beihaiting.com/uploads/allimg/140919/10723-140919213430591.jpg",
+    "http://pics.sc.chinaz.com/Files/pic/faces/4407/13.gif"
   ]
   
   var imageUrlList: [String] = []

@@ -8,18 +8,19 @@
 
 import UIKit
 import SDWebImage
+import FLAnimatedImage
 
 class ZoomImageScrollView: UIScrollView {
   
-  fileprivate var imageView: UIImageView!
-  fileprivate var singleTap: UITapGestureRecognizer!
-  fileprivate var doubleTap: UITapGestureRecognizer!
-  fileprivate var placeHolderImageSize: CGSize?
-  fileprivate var netImageSize: CGSize!
-  fileprivate var isLoaded = false // 是否加载完大图
-  fileprivate var isAnimation = false //标识此刻是否为放大动画，如果是则手动调整大小执行moveFrameToCenter，不执行layoutsubviews的moveFrameToCenter
-  fileprivate var progressView: LoadImageProgressView!
-  fileprivate var initialZoomScale: CGFloat! //保存初始比例，供双击放大后还原使用
+  fileprivate var imageView: FLAnimatedImageView!
+  private var singleTap: UITapGestureRecognizer!
+  private var doubleTap: UITapGestureRecognizer!
+  private var placeHolderImageSize: CGSize?
+  private var netImageSize: CGSize!
+  private var isLoaded = false // 是否加载完大图
+  private var isAnimation = false //标识此刻是否为放大动画，如果是则手动调整大小执行moveFrameToCenter，不执行layoutsubviews的moveFrameToCenter
+  private var progressView: LoadImageProgressView!
+  private var initialZoomScale: CGFloat! //保存初始比例，供双击放大后还原使用
   
   var doubleTapMagnify = false {
     didSet{
@@ -37,7 +38,7 @@ class ZoomImageScrollView: UIScrollView {
   
   init(){
     super.init(frame: CGRect.zero)
-    configUI()
+    setupUI()
   }
   
   required init?(coder aDecoder: NSCoder) {
@@ -53,14 +54,7 @@ class ZoomImageScrollView: UIScrollView {
  
   }
   
-  /**
-   设置图片
-   
-   - parameter imageUrl:         图片url
-   - parameter placeholderImage: 占位图
-   - parameter loadNow:          是否立即加载，用户动画push时在完全显示出来后再去加载图片
-   */
-  func setImageUrl(_ imageUrl: String, placeholderImage: UIImage? = nil, loadNow: Bool = true) {
+  func setImage(with imageURL: String, placeholderImage: UIImage? = nil, loadNow: Bool = true) {
     
     minimumZoomScale = 1
     maximumZoomScale = 1
@@ -75,23 +69,34 @@ class ZoomImageScrollView: UIScrollView {
     tag = currentTag
     
     //如果图片没有被缓存过则显示默认图片站位
-    if let image = SDImageCache.shared().imageFromCache(forKey: imageUrl) {
+    if let image = SDImageCache.shared().imageFromCache(forKey: imageURL) {
       
       progressView.isHidden = true
-      didFetchImageWith(image)
+      didFetchImage(imageSize: image.size)
+      
+      DispatchQueue.global().async {
+        
+        guard let path = SDImageCache.shared().defaultCachePath(forKey: imageURL) else { return }
+        guard let data = FileManager.default.contents(atPath: path) else { return }
+        
+        self.setGIFImage(with: data, tag: currentTag)
+
+      }
+      
       return
     }
     
     placeHolderImageSize = placeholderImage?.size
     
-    self.setImage(placeholderImage)
+    imageView.image = placeholderImage
+    setImageViewSize(with: placeHolderImageSize)
     progressView.isHidden = false
     
     guard loadNow else {
       return
     }
     
-    self.imageView.sd_setImage(with: URL(string: imageUrl), placeholderImage: placeholderImage, options: .avoidAutoSetImage, progress: { (current, total, URL) -> Void in
+    SDWebImageDownloader.shared().downloadImage(with: URL(string: imageURL), options: [], progress: { (current, total, URL) -> Void in
       
       DispatchQueue.main.async {
         
@@ -100,15 +105,23 @@ class ZoomImageScrollView: UIScrollView {
         self.progressView.progress = CGFloat(current) / CGFloat(total)
       }
       
-    }) { (image, error, SDImageCacheType, url) -> Void in
+    }) { (_, data, error, _) in
       
-      guard let image = image, error == nil else { return }
+      guard let data = data else { return }
       
-      guard currentTag == self.tag else { return }
-      
-      self.progressView.dismiss()
-      self.didFetchImageWith(image)
-      
+      DispatchQueue.global().async {
+        
+        SDImageCache.shared().storeImageData(toDisk: data, forKey: imageURL)
+
+        self.setGIFImage(with: data, tag: currentTag) { imageSize in
+        
+          guard let imageSize = imageSize else { return }
+          
+          self.progressView.dismiss()
+          self.didFetchImage(imageSize: imageSize)
+          
+        }
+      }
     }
   }
   
@@ -123,7 +136,8 @@ class ZoomImageScrollView: UIScrollView {
     progressView.isHidden = true
     netImageSize = image.size
     isLoaded = true
-    setImage(image)
+    imageView.image = image
+    setImageViewSize(with: image.size)
   }
   
   /**
@@ -161,7 +175,30 @@ class ZoomImageScrollView: UIScrollView {
     
   }
   
-  fileprivate func configUI() {
+  private func setGIFImage(with data: Data, tag: Int, completion: ((CGSize?) -> Void)? = nil) {
+    
+    let flAnimatedImage = FLAnimatedImage(animatedGIFData: data)
+    let image = UIImage(data: data)
+    
+    DispatchQueue.main.async {
+      
+      guard tag == self.tag else { return }
+      
+      var imageSize: CGSize!
+      
+      if flAnimatedImage != nil {
+        imageSize = flAnimatedImage!.size
+        self.imageView.animatedImage = flAnimatedImage
+      } else {
+        imageSize = image?.size
+        self.imageView.image = image
+      }
+      
+      completion?(imageSize)
+    }
+  }
+  
+  private func setupUI() {
     backgroundColor = UIColor.black
     showsHorizontalScrollIndicator = false
     showsVerticalScrollIndicator = false
@@ -171,7 +208,7 @@ class ZoomImageScrollView: UIScrollView {
     isScrollEnabled = false //使图片开始是不能滑动的，因为当图片宽为600左右，scale为0.533左右时，htable无法滑动，具体原因不明
     
     //imageview
-    imageView = UIImageView(frame: CGRect.zero)
+    imageView = FLAnimatedImageView(frame: CGRect.zero)
     imageView.backgroundColor = UIColor.black
     imageView.contentMode = .scaleAspectFill
     imageView.isUserInteractionEnabled = true
@@ -184,7 +221,7 @@ class ZoomImageScrollView: UIScrollView {
     initProgressView()
   }
   
-  fileprivate func initProgressView() {
+  private func initProgressView() {
     
     let progressWidth: CGFloat = 100
     let progressheight: CGFloat = 100
@@ -196,31 +233,30 @@ class ZoomImageScrollView: UIScrollView {
     
   }
   
-  fileprivate func setImage(_ image: UIImage?) {
+  private func setImageViewSize(with imageSize: CGSize?) {
     
-    if image == nil {
+    guard let imageSize = imageSize else {
       progressView.setWhiteStyle()
       return
     }
     
     progressView.setBlackStyle()
-    imageView.image = image
     //这里设置imageview的size为imagesize在当前缩放比例下的size
-    imageView.frame = CGRect(x: 0, y: 0, width: image!.size.width * zoomScale, height: image!.size.height * zoomScale)
+    imageView.frame = CGRect(x: 0, y: 0, width: imageSize.width * zoomScale, height: imageSize.height * zoomScale)
     //    contentSize = imageView.frame.size //不用手动设置
     
     calculateZoomScale()
   }
   
-  fileprivate func didFetchImageWith(_ image: UIImage) {
+  private func didFetchImage(imageSize: CGSize) {
     
-    self.netImageSize = image.size
-    self.isLoaded = true
-    self.setImage(image)
-    self.isAnimation = false
+    netImageSize = imageSize
+    isLoaded = true
+    setImageViewSize(with: imageSize)
+    isAnimation = false
   }
   
-  fileprivate func calculateZoomScale() {
+  private func calculateZoomScale() {
     
     let boundsSize = bounds.size
     let imageSize = isLoaded == true ? netImageSize : placeHolderImageSize!
@@ -277,7 +313,7 @@ class ZoomImageScrollView: UIScrollView {
     setNeedsLayout()
   }
   
-  fileprivate func moveFrameToCenter() {
+  private func moveFrameToCenter() {
     
     let boundsSize = bounds.size
     let imageViewSize = imageView.frame.size
@@ -303,7 +339,7 @@ class ZoomImageScrollView: UIScrollView {
   }
   
   //当占位图比较大时看着不爽
-  fileprivate func reducePlaceHolderIfNeed(_ scale: CGFloat) -> CGFloat {
+  private func reducePlaceHolderIfNeed(_ scale: CGFloat) -> CGFloat {
     
     guard placeHolderImageSize != nil else {
       return scale
@@ -347,5 +383,4 @@ extension ZoomImageScrollView: UIScrollViewDelegate {
     layoutIfNeeded()
     
   }
-  
 }

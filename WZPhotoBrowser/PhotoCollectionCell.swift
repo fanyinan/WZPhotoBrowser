@@ -26,8 +26,8 @@ class PhotoCollectionCell: UICollectionViewCell {
     
   }
   
-  func setImageUrl(_ imageUrl: String, placeholderImage: UIImage? = nil, loadNow: Bool = true) {
-    zoomImageScrollView.setImageUrl(imageUrl, placeholderImage: placeholderImage, loadNow: loadNow)
+  func setImageUrl(_ imageURL: String, placeholderImage: UIImage? = nil, loadNow: Bool = true) {
+    zoomImageScrollView.setImage(with: imageURL, placeholderImage: placeholderImage, loadNow: loadNow)
   }
   
   func setLocalImage(_ image: UIImage) {

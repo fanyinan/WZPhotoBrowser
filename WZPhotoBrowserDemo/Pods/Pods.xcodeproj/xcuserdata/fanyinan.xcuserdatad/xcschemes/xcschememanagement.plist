@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>FLAnimatedImage.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-WZPhotoBrowserDemo.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -17,12 +22,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>284109554F27181773DAD9BFC2967B50</key>
+		<key>21F475A8783A9743913285469D4292C6</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>6AB8AAB067D46F8B2E1A0BDAA4364D90</key>
+		<key>308927E38A94B1D295B77C736DE34EEC</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>83B5B60C676A8D31829A6AE91CE86A75</key>
 		<dict>
 			<key>primary</key>
 			<true/>
