@@ -79,7 +79,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source = { :git => "/Users/fanyinan/Documents/MyProject/WZPhotoBrowser", :tag => s.version.to_s }
+  s.source = { :git => "/Users/fanyinan/Documents/MyProject/WZPhotoBrowser", :tag => '0.1.4' }
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   #
