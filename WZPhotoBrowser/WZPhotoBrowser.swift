@@ -141,6 +141,10 @@ open class WZPhotoBrowser: UIViewController {
     
     initMainTableView()
     
+    let testView = UIView(frame: CGRect(origin: CGPoint.zero, size: CGSize(width: 1, height: 1)))
+    testView.center = CGPoint(x: view.frame.midX, y: view.frame.midY)
+    testView.backgroundColor = UIColor.red
+    view.addSubview(testView)
   }
   
   fileprivate func initMainTableView() {

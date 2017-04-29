@@ -164,11 +164,11 @@ class ZoomImageScrollView: UIScrollView {
     
     let zoomRectScale: CGFloat = 2
     
-    let zoomWidth = (netImageSize.width + imageView.frame.minX * 2) / zoomRectScale
-    let zoomHeight = (netImageSize.height + imageView.frame.minY * 2) / zoomRectScale
+    let zoomWidth = frame.width / zoomScale / zoomRectScale
+    let zoomHeight = frame.height / zoomScale / zoomRectScale
     
-    let zoomX = position.x - zoomWidth / 2 - imageView.frame.minX / zoomRectScale
-    let zoomY = position.y - zoomHeight / 2 - imageView.frame.minY / zoomRectScale
+    let zoomX = position.x - zoomWidth / 2 - imageView.frame.minX / zoomScale / zoomRectScale
+    let zoomY = position.y - zoomHeight / 2 - imageView.frame.minY / zoomScale / zoomRectScale
     
     let zoomRect = CGRect(x: zoomX, y: zoomY, width: zoomWidth, height: zoomHeight)
     zoom(to: zoomRect, animated: true)

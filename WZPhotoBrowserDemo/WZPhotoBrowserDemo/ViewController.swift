@@ -80,7 +80,7 @@ class ViewController: UIViewController {
     view.addSubview(slider)
 
     UIApplication.shared.setStatusBarHidden(true, with: .none)
-
+    
   }
   
   func changeImageCount(_ sender: UISlider) {
