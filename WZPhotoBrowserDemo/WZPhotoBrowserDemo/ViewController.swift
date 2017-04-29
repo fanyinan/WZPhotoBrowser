@@ -17,25 +17,13 @@ class ViewController: UIViewController {
   var imageWidth: CGFloat!
   var imageStoreUrlList: [String] = [
     "http://avatar.csdn.net/5/0/E/2_tangxiaoyin.jpg",
-    "http://www.qq1234.org/uploads/allimg/150709/8_150709172502_8.jpg",
-    "http://wenwen.soso.com/p/20100824/20100824165300-1042703649.jpg",
-    "http://www.feizl.com/upload2007/2014_06/1406251642203323.jpg",
-    "http://image1.yuanfenba.net/uploads/oss/photo/201511/16/14361140059.jpg",
+    "http://image1.yuanfenba.net/uploads/oss/avatar/201703/22/1706308129.jpg",
     "http://image1.yuanfenba.net/uploads/oss/photo/201511/19/17164875104.jpg",
     "http://image1.yuanfenba.net/uploads/oss/dynamic/201511/25/23171018488.jpg",
-    "http://www.feizl.com/upload2007/2010_09/100911130437041.jpg",
-    "http://www.th7.cn/d/file/p/2014/05/26/0663b0489efeb590a78e8aba16e5040a.jpg",
-    "http://g.hiphotos.baidu.com/album/pic/item/cf1b9d16fdfaaf51b530fc868e5494eef01f7a33.jpg?psign=b530fc868e5494eef01f3a292df5e0fe9825bc315c605e0b",
-    "http://image.tianjimedia.com/uploadImages/2014/103/20/9QFI1QR41K5J.jpg",
-    "http://www.th7.cn/d/file/p/2014/01/28/34c61c2dc4bab0f0570a26ee628bdf74.jpg",
-    "http://www.bz55.com/uploads/allimg/130302/1-130302094042.jpg",
-    "http://image.tianjimedia.com/uploadImages/2014/127/39/GA3WLSKVW5SR.jpg",
-    "http://fc.topit.me/c/5e/dd/11305252553dddd5eco.jpg",
+    "http://image1.yuanfenba.net/uploads/oss/avatar/201704/05/1537466920.jpg",
+    "http://image1.yuanfenba.net/uploads/oss/avatar/201608/02/17341194657.jpg",
+    "http://image1.yuanfenba.net/uploads/oss/avatar/201608/03/11134237396.jpg",
     "http://r.photo.store.qq.com/psb?/V13LH3PA3wo6Vo/PjU9yTKcQiEa.fZdWv2uebIToQkVqs0yaXy3mNUTCFw%21/o/dJYjcpSwGAAA&bo=wwOAAkAGJwQBAAA%21",
-    "http://img5.aili.com/201404/25/1398406512_51645900.jpg",
-    "http://images.ccoo.cn/bbs/2010818/201081814532688.jpg",
-    "http://www.beihaiting.com/uploads/allimg/140919/10723-140919213430591.jpg",
-    "http://pics.sc.chinaz.com/Files/pic/faces/4407/13.gif"
   ]
   
   var imageUrlList: [String] = []
@@ -149,7 +137,8 @@ extension ViewController: UICollectionViewDataSource {
     
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifierCell, for: indexPath) as! ThumbCell
     
-    cell.avatarImageView.sd_setImage(with: URL(string: imageUrlList[indexPath.row]), placeholderImage: nil, options: [], completed: { (image, ErrorType, type, url) -> Void in
+    let thumbImageURL = imageUrlList[indexPath.row] + "@1e_\(Int(cell.avatarImageView.frame.width))w_\(Int(cell.avatarImageView.frame.width))h_0c_0i_1o_90Q_1x.png"
+    cell.avatarImageView.sd_setImage(with: URL(string: thumbImageURL), placeholderImage: nil, options: [], completed: { (image, ErrorType, type, url) -> Void in
       
       self.thumbnailImageDic[self.imageUrlList[indexPath.row]] = image ?? UIImage(named: url!.absoluteString)
         

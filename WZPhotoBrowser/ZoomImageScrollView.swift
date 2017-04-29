@@ -16,7 +16,7 @@ class ZoomImageScrollView: UIScrollView {
   private var singleTap: UITapGestureRecognizer!
   private var doubleTap: UITapGestureRecognizer!
   private var placeHolderImageSize: CGSize?
-  private var netImageSize: CGSize!
+  private var netImageSize: CGSize = CGSize.zero
   private var isLoaded = false // 是否加载完大图
   private var isAnimation = false //标识此刻是否为放大动画，如果是则手动调整大小执行moveFrameToCenter，不执行layoutsubviews的moveFrameToCenter
   private var progressView: LoadImageProgressView!
@@ -261,8 +261,8 @@ class ZoomImageScrollView: UIScrollView {
     let boundsSize = bounds.size
     let imageSize = isLoaded == true ? netImageSize : placeHolderImageSize!
     
-    let scaleX = boundsSize.width / (imageSize?.width)!
-    let scaleY = boundsSize.height / (imageSize?.height)!
+    let scaleX = boundsSize.width / imageSize.width
+    let scaleY = boundsSize.height / imageSize.height
     
     var minScale = min(scaleX, scaleY)
     
@@ -284,7 +284,7 @@ class ZoomImageScrollView: UIScrollView {
       
       //此时已经换了一张大图，但是需要先缩小到之前的比例，以便进行动画
       //这里使用的占位图片的尺寸应为实际显示出来的尺寸，因为占位图的缩放比例用reducePlaceHolderIfNeed处理过
-      let scaleForPlaceHolder = self.placeHolderImageSize!.width * zoomScale / (imageSize?.width)!
+      let scaleForPlaceHolder = self.placeHolderImageSize!.width * zoomScale / imageSize.width
       
       minimumZoomScale = scaleForPlaceHolder
       zoomScale = scaleForPlaceHolder
