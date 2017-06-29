@@ -60,6 +60,7 @@ open class WZPhotoBrowser: UIViewController {
   public weak var delegate: WZPhotoBrowserDelegate?
   public var isAnimate = false //用于设置是否经过动画跳转来 ，由PhotoTransitionPushAnimation设置
   public var doubleTapMagnify = false
+  public var isHideNavigationBar = true
   public var quitBlock: (() -> Void)?
   public var currentIndex: Int = 0 {
     didSet{
@@ -85,7 +86,6 @@ open class WZPhotoBrowser: UIViewController {
     super.viewDidLoad()
     
     setupUI()
-    
   }
   
   override open func viewWillAppear(_ animated: Bool) {
@@ -98,7 +98,7 @@ open class WZPhotoBrowser: UIViewController {
       currentIndex = 0
     }
     
-    hideNavigationBar()
+    updateNavigationBarHiddenStatus()
     
     if isAnimate {
       
@@ -121,12 +121,7 @@ open class WZPhotoBrowser: UIViewController {
   
   override open func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
-    hideNavigationBar()
-  }
-  
-  override open func didReceiveMemoryWarning() {
-    super.didReceiveMemoryWarning()
-    // Dispose of any resources that can be recreated.
+    updateNavigationBarHiddenStatus()
   }
   
   override open var prefersStatusBarHidden : Bool {
@@ -169,16 +164,14 @@ open class WZPhotoBrowser: UIViewController {
   /**
    收起navigationbar 暂不用
    */
-  fileprivate func hideNavigationBar() {
+  fileprivate func updateNavigationBarHiddenStatus() {
     
-    if navigationController == nil {
-      return
-    }
+    if navigationController == nil { return }
+    
+    guard isHideNavigationBar else { return }
     
     let isHidden = navigationController!.isNavigationBarHidden
     navigationController!.setNavigationBarHidden(!isHidden, animated: true)
-    //    UIApplication.sharedApplication().setStatusBarStyle(isHidden ? .Default : .LightContent, animated: false)
-    
     
   }
   

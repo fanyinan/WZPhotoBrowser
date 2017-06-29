@@ -38,7 +38,7 @@ Pod::Spec.new do |s|
   #  Popular ones are 'MIT', 'BSD' and 'Apache License, Version 2.0'.
   #
 
-  s.license      = "MIT"
+  s.license      = "BSD"
   # s.license      = { :type => "MIT", :file => "FILE_LICENSE" }
 
 
@@ -79,7 +79,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source = { :git => "/Users/fanyinan/Documents/MyProject/WZPhotoBrowser", :tag => '0.1.4' }
+  s.source       = { :git => "http://iOSdefault:123456@test.game.xiaoyouapp.cn:20080/iOS/WZPhotoBrowser.git", :tag => "#{s.version}" }
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   #
