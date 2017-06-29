@@ -259,7 +259,7 @@ class ZoomImageScrollView: UIScrollView {
   private func calculateZoomScale() {
     
     let boundsSize = bounds.size
-    let imageSize = isLoaded == true ? netImageSize : placeHolderImageSize!
+    let imageSize = isLoaded ? netImageSize : placeHolderImageSize!
     
     let scaleX = boundsSize.width / imageSize.width
     let scaleY = boundsSize.height / imageSize.height
@@ -280,7 +280,7 @@ class ZoomImageScrollView: UIScrollView {
     
     maximumZoomScale = maxScale
     
-    if placeHolderImageSize != nil && self.isLoaded == true {
+    if placeHolderImageSize != nil && self.isLoaded {
       
       //此时已经换了一张大图，但是需要先缩小到之前的比例，以便进行动画
       //这里使用的占位图片的尺寸应为实际显示出来的尺寸，因为占位图的缩放比例用reducePlaceHolderIfNeed处理过

@@ -160,7 +160,8 @@ open class WZPhotoBrowser: UIViewController {
     mainCollectionView.backgroundColor = UIColor.black
     mainCollectionView.register(PhotoCollectionCell.self, forCellWithReuseIdentifier: "PhotoCollectionCell")
     mainCollectionView.showsHorizontalScrollIndicator = false
-    
+    mainCollectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+
     view.addSubview(mainCollectionView)
     
   }
