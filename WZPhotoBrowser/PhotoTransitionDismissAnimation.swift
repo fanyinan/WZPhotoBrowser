@@ -37,14 +37,18 @@ public class PhotoTransitionDismissAnimation: NSObject, UIViewControllerAnimated
     fromView?.alpha = 1
     fromVC.setMainTableViewHiddenForAnimation(true)
     
+    let maskView = UIView(frame: UIScreen.main.bounds)
+    maskView.backgroundColor = .clear
+    maskView.clipsToBounds = true
+    containerView.addSubview(maskView)
+    
     //初始化负责动画的ImageView
     let imageSizeInFromVC = fromVC.getCurrentDisplayImageRect()
     let imageViewForAnimation = UIImageView(frame: imageSizeInFromVC)
-    containerView.addSubview(imageViewForAnimation)
+    maskView.addSubview(imageViewForAnimation)
     imageViewForAnimation.contentMode = .scaleAspectFill
     imageViewForAnimation.clipsToBounds = true
     imageViewForAnimation.image = fromVC.getCurrentDisplayImage()
-    
     
     var finalFrame = CGRect.zero
     var isHaveTargetFrame: Bool!
@@ -71,8 +75,9 @@ public class PhotoTransitionDismissAnimation: NSObject, UIViewControllerAnimated
     
     UIView.animate(withDuration: transitionDuration(using: transitionContext), animations: { () -> Void in
       
+      maskView.frame = _showVC.visibleFrameInScreen()
       fromView?.alpha = 0
-      imageViewForAnimation.frame = finalFrame
+      imageViewForAnimation.frame = maskView.convert(finalFrame, from: nil)
       
       if !isHaveTargetFrame {
         imageViewForAnimation.alpha = 0
@@ -83,7 +88,7 @@ public class PhotoTransitionDismissAnimation: NSObject, UIViewControllerAnimated
       
       }, completion: { _ in
         
-        imageViewForAnimation.removeFromSuperview()
+        maskView.removeFromSuperview()
         transitionContext.completeTransition(true)
         
         (self.showVC as? WZPhotoBrowserAnimatedTransitionDelegate)?.animatedTransitionEndDismissViewController?(imageViewForAnimation)

@@ -213,4 +213,8 @@ extension ViewController: WZPhotoBrowserAnimatedTransitionDataSource {
     return thumbnailImageDic[imageUrlList[selectImageIndex]]
 
   }
+  
+  func visibleFrameInScreen() -> CGRect {
+    return view.convert(view.bounds, to: nil)
+  }
 }

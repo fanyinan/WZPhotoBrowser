@@ -34,9 +34,15 @@ public class PhotoTransitionPresentAnimation: NSObject, UIViewControllerAnimated
     containerView.addSubview(toView)
     containerView.backgroundColor = UIColor.clear
     
+    let maskView = UIView(frame: _showVC.visibleFrameInScreen())
+    maskView.backgroundColor = .clear
+    maskView.clipsToBounds = true
+    containerView.addSubview(maskView)
+    
     let imageFrameInScreen = _showVC.getImageViewFrameInScreenWith(nil) ?? CGRect.zero
-    let imageViewForAnimation = UIImageView(frame: imageFrameInScreen)
-    containerView.addSubview(imageViewForAnimation)
+    let imageFrameInMask = maskView.convert(imageFrameInScreen, from: nil)
+    let imageViewForAnimation = UIImageView(frame: imageFrameInMask)
+    maskView.addSubview(imageViewForAnimation)
     imageViewForAnimation.contentMode = .scaleAspectFill
     imageViewForAnimation.clipsToBounds = true
     imageViewForAnimation.image = _showVC.getImageForAnimation()
@@ -47,6 +53,7 @@ public class PhotoTransitionPresentAnimation: NSObject, UIViewControllerAnimated
     
     UIView.animate(withDuration: transitionDuration(using: transitionContext), animations: { () -> Void in
       
+      maskView.frame = UIScreen.main.bounds
       imageViewForAnimation.frame = finalRect
       imageViewForAnimation.center = toView.center
       toView.alpha = 1
@@ -57,7 +64,7 @@ public class PhotoTransitionPresentAnimation: NSObject, UIViewControllerAnimated
       }, completion: { _ in
         
         toVC.setMainTableViewHiddenForAnimation(false)
-        imageViewForAnimation.removeFromSuperview()
+        maskView.removeFromSuperview()
         transitionContext.completeTransition(true)
         toVC.completePresent()
         
