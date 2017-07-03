@@ -21,7 +21,7 @@ public protocol WZPhotoBrowserAnimatedTransitionDataSource: NSObjectProtocol {
 }
 
 extension WZPhotoBrowserAnimatedTransitionDataSource {
-  func visibleFrameInScreen() -> CGRect { return UIScreen.main.bounds }
+  public func visibleFrameInScreen() -> CGRect { return UIScreen.main.bounds }
 }
 
 @objc public protocol WZPhotoBrowserAnimatedTransitionDelegate: NSObjectProtocol {
