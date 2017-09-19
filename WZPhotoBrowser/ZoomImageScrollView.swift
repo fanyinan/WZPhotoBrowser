@@ -150,7 +150,7 @@ class ZoomImageScrollView: UIScrollView {
     singleTap.addTarget(target, action: action)
   }
   
-  func imageViewDoubleTap(_ tap: UITapGestureRecognizer) {
+  @objc func imageViewDoubleTap(_ tap: UITapGestureRecognizer) {
     
     guard isLoaded else { return }
     

@@ -187,7 +187,7 @@ open class WZPhotoBrowser: UIViewController {
     
   }
   
-  open func onClickPhoto() {
+  @objc open func onClickPhoto() {
     
     quitBlock?()
     quitBlock = nil

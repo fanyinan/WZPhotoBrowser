@@ -50,7 +50,7 @@ class ViewController: UIViewController {
     // Dispose of any resources that can be recreated.
   }
   
-  func onClearCache() {
+  @objc func onClearCache() {
     
     SDImageCache.shared().clearMemory()
     SDImageCache.shared().clearDisk(onCompletion: nil)
@@ -83,7 +83,7 @@ class ViewController: UIViewController {
     
   }
   
-  func changeImageCount(_ sender: UISlider) {
+  @objc func changeImageCount(_ sender: UISlider) {
     let imageCount = Int(sender.value * Float(imageStoreUrlList.count))
     
     imageUrlList = Array(imageStoreUrlList[0..<imageCount])
