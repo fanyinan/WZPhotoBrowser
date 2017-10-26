@@ -17,12 +17,12 @@ class ViewController: UIViewController {
   var imageWidth: CGFloat!
   var imageStoreUrlList: [String] = [
     "http://avatar.csdn.net/5/0/E/2_tangxiaoyin.jpg",
-    "http://image1.yuanfenba.net/uploads/oss/avatar/201703/22/1706308129.jpg",
-    "http://image1.yuanfenba.net/uploads/oss/photo/201511/19/17164875104.jpg",
-    "http://image1.yuanfenba.net/uploads/oss/dynamic/201511/25/23171018488.jpg",
-    "http://image1.yuanfenba.net/uploads/oss/avatar/201704/05/1537466920.jpg",
-    "http://image1.yuanfenba.net/uploads/oss/avatar/201608/02/17341194657.jpg",
-    "http://image1.yuanfenba.net/uploads/oss/avatar/201608/03/11134237396.jpg",
+    "http://image1.fyn.net/uploads/oss/avatar/201703/22/1706308129.jpg",
+    "http://image1.fyn.net/uploads/oss/photo/201511/19/17164875104.jpg",
+    "http://image1.fyn.net/uploads/oss/dynamic/201511/25/23171018488.jpg",
+    "http://image1.fyn.net/uploads/oss/avatar/201704/05/1537466920.jpg",
+    "http://image1.fyn.net/uploads/oss/avatar/201608/02/17341194657.jpg",
+    "http://image1.fyn.net/uploads/oss/avatar/201608/03/11134237396.jpg",
     "http://r.photo.store.qq.com/psb?/V13LH3PA3wo6Vo/PjU9yTKcQiEa.fZdWv2uebIToQkVqs0yaXy3mNUTCFw%21/o/dJYjcpSwGAAA&bo=wwOAAkAGJwQBAAA%21",
   ]
   

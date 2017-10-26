@@ -1,9 +1,9 @@
 //
 //  VisitedMeCollectionViewCell.swift
-//  MuMu
+//  WZPhotoBrowser
 //
 //  Created by 范祎楠 on 15/7/17.
-//  Copyright © 2015年 juxin. All rights reserved.
+//  Copyright © 2015年 fyn. All rights reserved.
 //
 
 import UIKit
